@@ -1,0 +1,47 @@
+snippet llvm "For use with clang compilers"
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	message("-- Nice, cool kids use clang")
+	target_compile_options(data_handler PUBLIC  "-stdlib=libc++")
+	add_link_options(-lc++abi -lc++)
+endif()
+endsnippet
+
+snippet qtmake "Generate CMake Template for Qt"
+cmake_minimum_required(VERSION 3.10)
+
+project(${1:ProjectName} LANGUAGES CXX)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(Qt5 COMPONENTS Core REQUIRED)
+
+add_executable(${PROJECT_NAME} "src/main.cpp")
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Quick)
+endsnippet
+
+snippet basic "Basic CMake"
+cmake_minimum_required(VERSION 3.10)
+
+project(${1:ProjectName} LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(${PROJECT_NAME} src/main.cpp)
+endsnippet
+
+snippet compile "Add Compile"
+#for commands_compile.json, ignore or remove 
+IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )
+   EXECUTE_PROCESS( COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
+    ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
+  )
+ENDIF()
+endsnippet
+
+
+

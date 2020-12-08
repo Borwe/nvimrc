@@ -1,4 +1,16 @@
-local nvim_lsp=require('nvim_lsp');
+local nvim_lsp=require('lspconfig');
+local path= require('lspconfig/util').path;
+
+-- Configure to work with Ultisnips templates
+vim.g.completion_enable_snippet='UltiSnips'
+
+-- Configure for buffers complete
+vim.g.completion_chain_complete_list={
+    {complete_items= {'lsp'}},
+    {complete_items = {'buffers'}},
+    {mode = { '<c-p>' }},
+    {mode = { '<c-n>' }}
+}
 
 local map= function (type,key,value)
     vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap=true, silent=true});
@@ -66,6 +78,8 @@ local custom_on_attach_lsp=function (client)
     map('n','godoc','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
     map('n','goW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
     map('n','godec','<cmd>lua vim.lsp.buf.declaration()<CR>')
+    map('n','X','<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+    map('n','fix','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
 local custom_on_init_lsp=function (client)
@@ -100,6 +114,12 @@ nvim_lsp.sumneko_lua.setup{
 nvim_lsp.pyls.setup{on_attach=custom_on_attach_lsp}
 nvim_lsp.jdtls.setup{
     on_init=custom_on_init_lsp,
-    on_attach=custom_on_attach_lsp
+    on_attach=custom_on_attach_lsp,
+    init_options={
+        workspace= path.join {vim.loop.os_homedir(),
+            "jdtls-workspace"};
+          jvm_args = {};
+          os_config = nil;
+    };
 }
 

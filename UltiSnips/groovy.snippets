@@ -1,0 +1,7 @@
+snippet "jtask" "Create a javaExec task"
+task ${1:task_name} (type:JavaExec){
+	main = "${2:ClassToExecute}"
+	classpath = sourceSets.main.runtimeClasspath
+}
+endsnippet
+

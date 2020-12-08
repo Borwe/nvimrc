@@ -1,0 +1,35 @@
+snippet main "create void main function"
+int main(){
+	return 0;
+}
+endsnippet
+
+snippet main_args "Main with args"
+int main(int argc,char **argv){
+	return 0;
+}
+endsnippet
+
+snippet cout "print"
+std::cout<<${0:"Print something"};
+endsnippet
+
+snippet class "Create a class"
+class ${1:ClassName}{
+private:
+	${2://private variables}
+public:
+	${4://public variables}
+
+	$1();
+	~$1();
+};
+endsnippet
+
+snippet headers "Setup header file"
+#ifndef ${1:SOME_CUSTOM_CHECKER}_CUSTOM
+#define $1_CUSTOM
+
+#endif
+endsnippet
+

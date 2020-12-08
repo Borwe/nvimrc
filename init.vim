@@ -7,7 +7,6 @@ let s:OS_win32=has('win32')
 call plug#begin()
 
 " let Vundle manage Vundle, required
-Plug 'VundleVim/Vundle.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/duoduo'
 Plug 'vim-airline/vim-airline'
@@ -15,9 +14,10 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'   "for git and info on airline
 Plug 'skielbasa/vim-material-monokai'
 Plug 'neovim/nvim-lspconfig' " for lsp
+Plug 'nvim-lua/completion-nvim' " for completions
+Plug 'steelsojka/completion-buffers' " for completions with buffers
 Plug 'morhetz/gruvbox'
 Plug 'leafgarland/typescript-vim' " syntax highlighting for vim
-Plug 'Shougo/unite.vim'
 Plug 'junegunn/fzf'
 Plug 'vim-scripts/taglist.vim'
 Plug 'Borwe/vim-ide-file' " own ide plugin, (WIP)
@@ -114,9 +114,9 @@ inoremap ( ()<C-[>i
 
 " setup for ultisnips
 let g:UltiSnipsExpandTrigger="<c-b>"
-let g:UltiSnipsListSnippets="<A-j>"
+" let g:UltiSnipsListSnippets="J"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-u>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "group for setting filetypes
 augroup set_file_types
@@ -183,18 +183,66 @@ function! SelectBuffer()
 endfunction
 command! Buff call SelectBuffer()
 
-lua require('lsp_config')
+"for ultisnips
+function! ShowUltiSnipsFunction(findstart,base) abort
+    if empty(UltiSnips#SnippetsInCurrentScope(1))
+        return ''
+    endif
+    if a:findstart
+        let line=getline('.')
+        let start=col('.')-1
+        while start > 0 && (line[start -1] =~'\a')
+            let start-=1
+        endwhile
+        return start
+    else
+        let res=[]
+        for [key, info] in items(g:current_ulti_dict_info)
+            if key=~ a:base
+                let n= {'abbr':key,'word':key,
+                \ 'menu': '[snip] '.info.description}
+                call add(res,n)
+            endif
+        endfor
+        return res
+    endif
+endfunction
+
+function! AfterCompeteIsDone()
+    augroup UltiPredictAdd
+        autocmd!
+        autocmd CompleteDonePre <buffer> :call UltiSnips#ExpandSnippet() |
+                    \ autocmd! UltiPredictAdd
+    augroup END
+endfunction
+
+function! ShowUltiSnips() abort
+    setlocal omnifunc=ShowUltiSnipsFunction
+    call feedkeys("\<C-x>\<C-o>")
+
+    "call the ultisnips exapnd function once user clicks <Enter>"
+    call AfterCompeteIsDone()
+endfunction
+
+inoremap <C-s> <cmd>call ShowUltiSnips()<CR>
+
+
+lua require('ultisnips_pops')
+command! UltiTest :call v:lua.showUltiSnips()
+lua require('lsp_pers_config')
 
 "for prompting completions
-
-function! AutoCompletion() abort
-    setl omnifunc=v:lua.vim.lsp.omnifunc
-
-    " remap for scrolling
-    inoremap <buffer> <expr> <Tab> pumvisible() ? "\<Down>" : "\<Tab>"
-    inoremap <buffer> <expr> <S-Tab> pumvisible() ? "\<Up>" : "\<Tab>"
-
-    call feedkeys("\<C-x>\<C-o>")
-endfunction
-inoremap <C-Space> <cmd>call AutoCompletion()<CR>
+" remap for scrolling
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
+" for nvim-completion remove auto hover
+let g:completion_enable_auto_hover = 0
+let g:completion_enable_auto_popup = 0
+imap <silent> <C-Space> <Plug>(completion_trigger)
 
