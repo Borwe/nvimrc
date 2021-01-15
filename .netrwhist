@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/home/brian'
+let g:netrw_dirhist_9='/home/brian/.ssh'
+let g:netrw_dirhist_8='/home/brian'
+let g:netrw_dirhist_7='/home/brian/.xdman'
+let g:netrw_dirhist_6='/home/brian'
+let g:netrw_dirhist_5='/home/brian/.xdman'
+let g:netrw_dirhist_4='/home/brian/.xdman/metadata'
+let g:netrw_dirhist_3='/home/brian/.xdman'
+let g:netrw_dirhist_2='/home/brian/Git-Repos/xdm/app/src/main/java/xdman/util'
+let g:netrw_dirhist_1='/home/brian/.xdman'

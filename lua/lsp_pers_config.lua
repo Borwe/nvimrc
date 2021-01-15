@@ -4,6 +4,9 @@ local path= require('lspconfig/util').path;
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet='UltiSnips'
 
+-- Get location where pip installs executables by deault
+local local_bin=os.getenv("HOME").."/.local/bin/"
+
 -- Configure for buffers complete
 vim.g.completion_chain_complete_list={
     {complete_items= {'lsp'}},
@@ -68,10 +71,10 @@ local custom_on_attach_lsp=function (client)
     vim.api.nvim_command('echom "'..alert..'"')
 
     -- Set key mappings
-    map('n','godef','<cmd>lua vim.lsp.buf.definition()<CR>')
+    map('n','<c-]>','<cmd>lua vim.lsp.buf.definition()<CR>')
     map('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
     map('n','D','<cmd>lua vim.lsp.buf.hover();vim.lsp.buf.hover()<CR>')
-    map('n','goimp','<cmd>lua vim.lsp.buf.implementation()<CR>')
+    map('n','<c-i>','<cmd>lua vim.lsp.buf.implementation()<CR>')
     map('n','<c-k>','<cmd>lua vim.lsp.buf.signature_help()<CR>')
     map('n','gotdef','<cmd>lua vim.lsp.buf.type_definition()<CR>')
     map('n','goref','<cmd>lua vim.lsp.buf.references()<CR>')
@@ -89,7 +92,9 @@ end
 
 nvim_lsp.clangd.setup{on_attach=custom_on_attach_lsp}
 nvim_lsp.vimls.setup{on_attach=custom_on_attach_lsp}
-nvim_lsp.cmake.setup{on_attach=custom_on_attach_lsp}
+nvim_lsp.cmake.setup{on_attach=custom_on_attach_lsp,
+    cmd = {local_bin..'/cmake-language-server'}
+}
 nvim_lsp.sumneko_lua.setup{
     on_attach=custom_on_attach_lsp,
     settings = {

@@ -35,6 +35,7 @@ endsnippet
 
 snippet compile "Add Compile"
 #for commands_compile.json, ignore or remove 
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 IF( EXISTS "${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json" )
    EXECUTE_PROCESS( COMMAND ${CMAKE_COMMAND} -E copy_if_different
     ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
