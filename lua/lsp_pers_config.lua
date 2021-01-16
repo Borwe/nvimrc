@@ -4,8 +4,14 @@ local path= require('lspconfig/util').path;
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet='UltiSnips'
 
+-- Get home dir
+local home_dir=os.getenv("HOME")
 -- Get location where pip installs executables by deault
 local local_bin=os.getenv("HOME").."/.local/bin/"
+-- Get location for npm global bin installs
+local npm_bin=os.getenv("HOME").."/.npm_new_global/bin/"
+-- Get location of where sumneko_lua is git cloned
+local sumneko_root_path=os.getenv("HOME").."/Git-Repos/lua-language-server/"
 
 -- Configure for buffers complete
 vim.g.completion_chain_complete_list={
@@ -25,6 +31,13 @@ local nvim_create_command= function (command_name,command)
         ' :'..command..'<CR>')
 end
 
+
+-- for java
+vim.env.JAR=home_dir.."/Git-Repos/jdtls/plugins/org.eclipse.equinox.launcher_1.6.0.v20200915-1508.jar"
+vim.env.JAVA_HOME="/usr/lib/jvm/adoptopenjdk-11-openj9-amd64/"
+vim.env.JDTLS_CONFIG=home_dir.."/Git-Repos/jdtls/config_linux/"
+vim.env.GRADLE_HOME=home_dir.."/Apps/Gradle/gradle-6.7.1/"
+vim.env.WORKSPACE=home_dir.."/jdtls-workspace"
 
 -- for restarting all lsp servers
 lspes_restart_all=function ()
@@ -86,16 +99,29 @@ local custom_on_attach_lsp=function (client)
 end
 
 local custom_on_init_lsp=function (client)
+    -- Setup for java
+    if client.name == "jdtls" then
+        print("LAMBA LOLOOOLOOO!")
+    end
     local alert='LSP '..client.name..' initializing....'
     vim.api.nvim_command('echom "'..alert..'"')
 end
 
-nvim_lsp.clangd.setup{on_attach=custom_on_attach_lsp}
-nvim_lsp.vimls.setup{on_attach=custom_on_attach_lsp}
+-- Installed from ubuntu packages
+nvim_lsp.clangd.setup{on_attach=custom_on_attach_lsp,
+    cmd = {"/usr/bin/clang++-10","--background-index"}}
+-- Installed from npm
+nvim_lsp.vimls.setup{on_attach=custom_on_attach_lsp,
+    cmd = {npm_bin..'/vim-language-server',"--stdio"}}
+-- Installed from pip
 nvim_lsp.cmake.setup{on_attach=custom_on_attach_lsp,
     cmd = {local_bin..'/cmake-language-server'}
 }
+-- Install from https://github.com/sumneko/lua-language-server
 nvim_lsp.sumneko_lua.setup{
+    cmd = {sumneko_root_path.."/bin/Linux/lua-language-server",
+        "-E",sumneko_root_path.."/main.lua"
+    },
     on_attach=custom_on_attach_lsp,
     settings = {
         Lua = {
@@ -116,8 +142,14 @@ nvim_lsp.sumneko_lua.setup{
         },
       },
 }
-nvim_lsp.pyls.setup{on_attach=custom_on_attach_lsp}
+-- Installed from pip
+nvim_lsp.pyls.setup{on_attach=custom_on_attach_lsp,
+    cmd={local_bin..'/pyls'}
+}
+-- Installed from jdtls eclipse website
 nvim_lsp.jdtls.setup{
+    cmd_env={
+    },
     on_init=custom_on_init_lsp,
     on_attach=custom_on_attach_lsp,
     init_options={
@@ -125,6 +157,7 @@ nvim_lsp.jdtls.setup{
             "jdtls-workspace"};
           jvm_args = {};
           os_config = nil;
-    };
+    },
+    root_dir = vim.loop.cwd
 }
 
