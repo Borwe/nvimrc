@@ -21,7 +21,6 @@ Plug 'leafgarland/typescript-vim' " syntax highlighting for vim
 Plug 'junegunn/fzf'
 Plug 'vim-scripts/taglist.vim'
 Plug 'Borwe/vim-ide-file' " own ide plugin, (WIP)
-Plug 'skywind3000/asyncrun.vim' "for running asyncronously, needed for vim-ide-file
 Plug 'Borwe/vim-vimrc-refresher' "For automatically refreshing vim
 Plug 'SirVer/ultisnips' "for snippets
 Plug 'vim-test/vim-test' "for running tests

@@ -9,7 +9,7 @@ local home_dir=os.getenv("HOME")
 -- Get location where pip installs executables by deault
 local local_bin=os.getenv("HOME").."/.local/bin/"
 -- Get location for npm global bin installs
-local npm_bin=os.getenv("HOME").."/.npm_new_global/bin/"
+local npm_bin=os.getenv("HOME").."/.npm_global_new/bin/"
 -- Get location of where sumneko_lua is git cloned
 local sumneko_root_path=os.getenv("HOME").."/Git-Repos/lua-language-server/"
 
@@ -32,7 +32,7 @@ local nvim_create_command= function (command_name,command)
 end
 
 
--- for java
+-- for java https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz
 vim.env.JAR=home_dir.."/Git-Repos/jdtls/plugins/org.eclipse.equinox.launcher_1.6.0.v20200915-1508.jar"
 vim.env.JAVA_HOME="/usr/lib/jvm/adoptopenjdk-11-openj9-amd64/"
 vim.env.JDTLS_CONFIG=home_dir.."/Git-Repos/jdtls/config_linux/"
@@ -109,7 +109,7 @@ end
 
 -- Installed from ubuntu packages
 nvim_lsp.clangd.setup{on_attach=custom_on_attach_lsp,
-    cmd = {"/usr/bin/clang++-10","--background-index"}}
+    cmd = {"/usr/bin/clangd-10","--background-index"}}
 -- Installed from npm
 nvim_lsp.vimls.setup{on_attach=custom_on_attach_lsp,
     cmd = {npm_bin..'/vim-language-server',"--stdio"}}
