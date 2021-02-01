@@ -25,7 +25,6 @@ Plug 'Borwe/vim-vimrc-refresher' "For automatically refreshing vim
 Plug 'SirVer/ultisnips' "for snippets
 Plug 'vim-test/vim-test' "for running tests
 Plug 'mhinz/vim-startify' "for managing startup and sessions
-Plug 'dracula/vim' " darcula theme
 
 call plug#end()
 
@@ -182,52 +181,9 @@ function! SelectBuffer()
 endfunction
 command! Buff call SelectBuffer()
 
-"for ultisnips
-function! ShowUltiSnipsFunction(findstart,base) abort
-    if empty(UltiSnips#SnippetsInCurrentScope(1))
-        return ''
-    endif
-    if a:findstart
-        let line=getline('.')
-        let start=col('.')-1
-        while start > 0 && (line[start -1] =~'\a')
-            let start-=1
-        endwhile
-        return start
-    else
-        let res=[]
-        for [key, info] in items(g:current_ulti_dict_info)
-            if key=~ a:base
-                let n= {'abbr':key,'word':key,
-                \ 'menu': '[snip] '.info.description}
-                call add(res,n)
-            endif
-        endfor
-        return res
-    endif
-endfunction
-
-function! AfterCompeteIsDone()
-    augroup UltiPredictAdd
-        autocmd!
-        autocmd CompleteDonePre <buffer> :call UltiSnips#ExpandSnippet() |
-                    \ autocmd! UltiPredictAdd
-    augroup END
-endfunction
-
-function! ShowUltiSnips() abort
-    setlocal omnifunc=ShowUltiSnipsFunction
-    call feedkeys("\<C-x>\<C-o>")
-
-    "call the ultisnips exapnd function once user clicks <Enter>"
-    call AfterCompeteIsDone()
-endfunction
-
-inoremap <C-s> <cmd>call ShowUltiSnips()<CR>
-
-
 lua require('ultisnips_pops')
-command! UltiTest :call v:lua.showUltiSnips()
+inoremap <C-s> <cmd>UltiSnipsPopUp<CR>
+
 lua require('lsp_pers_config')
 
 "for prompting completions

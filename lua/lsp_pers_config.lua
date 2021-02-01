@@ -1,3 +1,4 @@
+require("user_globals")
 local nvim_lsp=require('lspconfig');
 local path= require('lspconfig/util').path;
 
@@ -24,13 +25,6 @@ vim.g.completion_chain_complete_list={
 local map= function (type,key,value)
     vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap=true, silent=true});
 end
-
--- for creating commands! for lsp
-local nvim_create_command= function (command_name,command)
-    vim.cmd('command! '..command_name..
-        ' :'..command..'<CR>')
-end
-
 
 -- for java https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz
 vim.env.JAR=home_dir.."/Git-Repos/jdtls/plugins/org.eclipse.equinox.launcher_1.6.0.v20200915-1508.jar"
