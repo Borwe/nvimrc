@@ -8,15 +8,12 @@ call plug#begin()
 
 " let Vundle manage Vundle, required
 Plug 'scrooloose/nerdtree'
-Plug 'Yggdroot/duoduo'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'   "for git and info on airline
-Plug 'skielbasa/vim-material-monokai'
 Plug 'neovim/nvim-lspconfig' " for lsp
 Plug 'nvim-lua/completion-nvim' " for completions
 Plug 'steelsojka/completion-buffers' " for completions with buffers
-Plug 'morhetz/gruvbox'
 Plug 'leafgarland/typescript-vim' " syntax highlighting for vim
 Plug 'junegunn/fzf'
 Plug 'vim-scripts/taglist.vim'
@@ -34,8 +31,8 @@ filetype plugin indent on    " required
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-colorscheme gruvbox
-set background=dark
+colorscheme torte
+"set background=default
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -61,9 +58,8 @@ endif
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
 set showcmd		" Show (partial) command in status line.
-set cmdheight=2 " the size of the command line at bottom 
 set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
+set ignorecase		" Do case insensitive matching
 "set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
@@ -86,7 +82,7 @@ set wildmenu 	" Display all matching files when we tab complete
 set backspace=2 " for allowing deletion with backspace
 
 "set AirLine theme
-let g:airline_theme='gruvbox'
+"let g:airline_theme='gruvbox'
 
 "for opening ~/.vimrc
 nnoremap vrc :execute 'edit '.stdpath('config').'/init.vim'<CR>
