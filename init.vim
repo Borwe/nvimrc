@@ -169,13 +169,7 @@ endfunction
 command! Tab call SelectTabs() 
 
 " add command to switch buffers
-function! SelectBuffer()
-    :ls
-    :let buffNum=input("Select BUffer Number: ")
-    :echo "\nMoving to Buffer ".buffNum
-    :exec "buffer " buffNum
-endfunction
-command! Buff call SelectBuffer()
+lua require('buffer_prompt')
 
 lua require('ultisnips_pops')
 inoremap <C-s> <cmd>UltiSnipsPopUp<CR>
