@@ -23,6 +23,8 @@ Plug 'SirVer/ultisnips' "for snippets
 Plug 'vim-test/vim-test' "for running tests
 Plug 'mhinz/vim-startify' "for managing startup and sessions
 
+Plug 'Borwe/ide-nvim' " for ide support
+
 call plug#end()
 
 
@@ -31,8 +33,8 @@ filetype plugin indent on    " required
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-colorscheme torte
-"set background=default
+" colorscheme torte
+set background=light
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
