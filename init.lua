@@ -130,8 +130,8 @@ map('i','<C-s>','<cmd>UltiSnipsPopUp<CR>')
 require('lsp_pers_config')
 
 --remap for scrolling
-map('i','<expr> <Tab>','pumvisible() ? "\\<C-n>": "\\<Tab>"')
-map('i','<expr> <S-Tab>','pumvisible() ? "\\<C-p>": "\\<S-Tab>"')
+vim.cmd('inoremap <expr> <Tab> pumvisible() ? "\\<C-n>" : "\\<Tab>"')
+vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
 
 -- Set completeopt
 opts_with_val('o','completeopt','menuone,noinsert,noselect')
