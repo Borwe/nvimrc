@@ -1,5 +1,7 @@
 require("user_globals")
-local nvim_lsp=require('lspconfig');
+local lsp_config=require('lspconfig');
+local lsp_setup=require('lspconfig/configs');
+local lsp_util = require('lspconfig/util');
 local path= require('lspconfig/util').path;
 
 -- Configure to work with Ultisnips templates
@@ -102,17 +104,17 @@ local custom_on_init_lsp=function (client)
 end
 
 -- Installed from ubuntu packages
-nvim_lsp.clangd.setup{on_attach=custom_on_attach_lsp,
+lsp_config.clangd.setup{on_attach=custom_on_attach_lsp,
     cmd = {"/usr/bin/clangd-10","--background-index"}}
 -- Installed from npm
-nvim_lsp.vimls.setup{on_attach=custom_on_attach_lsp,
+lsp_config.vimls.setup{on_attach=custom_on_attach_lsp,
     cmd = {npm_bin..'/vim-language-server',"--stdio"}}
 -- Installed from pip
-nvim_lsp.cmake.setup{on_attach=custom_on_attach_lsp,
+lsp_config.cmake.setup{on_attach=custom_on_attach_lsp,
     cmd = {local_bin..'/cmake-language-server'}
 }
 -- Install from https://github.com/sumneko/lua-language-server
-nvim_lsp.sumneko_lua.setup{
+lsp_config.sumneko_lua.setup{
     cmd = {sumneko_root_path.."/bin/Linux/lua-language-server",
         "-E",sumneko_root_path.."/main.lua"
     },
@@ -137,11 +139,30 @@ nvim_lsp.sumneko_lua.setup{
       },
 }
 -- Installed from pip
-nvim_lsp.pyls.setup{on_attach=custom_on_attach_lsp,
+lsp_config.pyls.setup{on_attach=custom_on_attach_lsp,
     cmd={local_bin..'/pyls'}
 }
+
+-- setup vala language server
+lsp_setup.vala = {
+  default_config = {
+    cmd = {"vala-language-server"};
+    filetypes = {"vala","genie"};
+    root_dir = function(fname)
+        return vim.fn.getcwd()
+    end;
+  };
+  docs = {
+    description = [[https://github.com/benwaffle/vala-language-server]];
+    default_config = {
+      root_dir = [[./]];
+    };
+  };
+}
+lsp_config.vala.setup{}
+
 -- Installed from jdtls eclipse website
-nvim_lsp.jdtls.setup{
+lsp_config.jdtls.setup{
     cmd_env={
     },
     on_init=custom_on_init_lsp,

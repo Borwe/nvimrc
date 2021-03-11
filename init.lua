@@ -49,7 +49,7 @@ paq 'Borwe/vim-vimrc-refresher' -- For automatically refreshing vim
 paq 'SirVer/ultisnips' -- for snippets
 paq 'vim-test/vim-test' -- for running tests
 paq 'mhinz/vim-startify' -- for managing startup and sessions
-
+paq 'tkztmk/vim-vala' --for vala file support
 -- setup some configurations
 
 opts_with_val('o','background','dark') -- Set background
