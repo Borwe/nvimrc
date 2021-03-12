@@ -78,6 +78,7 @@ opts_with_val('o','backspace','2')
 
 map('n','vrc',
     ':edit '..vim.fn.stdpath('config')..'/init.lua<CR>')
+map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')
 --setup terminal
 if isWin32==1 then
     map('n','term',
