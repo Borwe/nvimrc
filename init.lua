@@ -50,12 +50,14 @@ paq 'SirVer/ultisnips' -- for snippets
 paq 'vim-test/vim-test' -- for running tests
 paq 'mhinz/vim-startify' -- for managing startup and sessions
 paq 'tkztmk/vim-vala' --for vala file support
+paq 'nanotee/luv-vimdocs' --for luv documentation
+paq 'morhetz/gruvbox'
 -- paq 'kabouzeid/nvim-lspinstall'
 
 -- setup some configurations
 
 opts_with_val('o','background','dark') -- Set background
-vim.cmd('colorscheme industry') -- Set colorscheme
+vim.cmd('colorscheme gruvbox') -- Set colorscheme
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
 opts("showmatch")
