@@ -1,8 +1,5 @@
 require("user_globals")
-local lsp_config=require('lspconfig');
-local lsp_setup=require('lspconfig/configs');
-local lsp_util = require('lspconfig/util');
-local path= require('lspconfig/util').path;
+local lsp_config=require('lspconfig')
 
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet='UltiSnips'
@@ -76,8 +73,7 @@ nvim_create_command('LspRename','lua vim.lsp.buf.rename()')
 
 -- Handle mapping and execution once LSP is attatched
 local custom_on_attach_lsp=function (client)
-    local alert='LSP '..client.name..' started'
-    vim.api.nvim_command('echom "'..alert..'"')
+    print('LSP '..client.name..' started')
 
     -- Set key mappings
     map('n','<Space>n','<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -95,85 +91,33 @@ local custom_on_attach_lsp=function (client)
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
-local custom_on_init_lsp=function (client)
-    -- Setup for java
-    if client.name == "jdtls" then
-        print("LAMBA LOLOOOLOOO!")
-    end
-    local alert='LSP '..client.name..' initializing....'
-    vim.api.nvim_command('echom "'..alert..'"')
-end
-
--- Installed from ubuntu packages
-lsp_config.clangd.setup{on_attach=custom_on_attach_lsp,
-    cmd = {"/usr/bin/clangd-10","--background-index"}}
--- Installed from npm
-lsp_config.vimls.setup{on_attach=custom_on_attach_lsp,
-    cmd = {npm_bin..'/vim-language-server',"--stdio"}}
--- Installed from pip
-lsp_config.cmake.setup{on_attach=custom_on_attach_lsp,
-    cmd = {local_bin..'/cmake-language-server'}
-}
--- Install from https://github.com/sumneko/lua-language-server
-lsp_config.sumneko_lua.setup{
-    cmd = {sumneko_root_path.."/bin/Linux/lua-language-server",
-        "-E",sumneko_root_path.."/main.lua"
-    },
-    on_attach=custom_on_attach_lsp,
-    settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
-            path = vim.split(package.path, ';'),
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+local lspinstall=require('lspinstall')
+lspinstall.setup()
+local servers=lspinstall.installed_servers()
+for _, server in pairs(servers) do
+    if server == "lua" then
+        lsp_config[server].setup{on_attach=custom_on_attach_lsp,
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = "LuaJIT",
+                        path = vim.split(package.path, ';'),
+                    },
+                    workspace = {
+                        library = {
+                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                        },
+                    },
+                    diagnostics = {
+                        globals = {"vim"},
+                        disable = {"lowercase-global", "unused-function"},
+                    },
+                },
             },
-          },
-          diagnostics = {
-            globals = {"vim"},
-            disable = {"lowercase-global", "unused-function"},
-          },
-        },
-      },
-}
--- Installed from pip
-lsp_config.pyls.setup{on_attach=custom_on_attach_lsp,
-    cmd={local_bin..'/pyls'}
-}
-
--- setup vala language server
-lsp_setup.vala = {
-  default_config = {
-    cmd = {"vala-language-server"};
-    filetypes = {"vala","genie"};
-    root_dir = function(fname)
-        return vim.fn.getcwd()
-    end;
-  };
-  docs = {
-    description = [[https://github.com/benwaffle/vala-language-server]];
-    default_config = {
-      root_dir = [[./]];
-    };
-  };
-}
-lsp_config.vala.setup{}
-
--- Installed from jdtls eclipse website
-lsp_config.jdtls.setup{
-    cmd_env={
-    },
-    on_init=custom_on_init_lsp,
-    on_attach=custom_on_attach_lsp,
-    init_options={
-        workspace= path.join {vim.loop.os_homedir(),
-            "jdtls-workspace"};
-          jvm_args = {};
-          os_config = nil;
-    },
-    root_dir = vim.loop.cwd
-}
+        }
+    else
+        lsp_config[server].setup{on_attach=custom_on_attach_lsp}
+    end
+end
 

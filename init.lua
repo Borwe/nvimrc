@@ -52,7 +52,7 @@ paq 'mhinz/vim-startify' -- for managing startup and sessions
 paq 'tkztmk/vim-vala' --for vala file support
 paq 'nanotee/luv-vimdocs' --for luv documentation
 paq 'morhetz/gruvbox'
--- paq 'kabouzeid/nvim-lspinstall'
+paq 'kabouzeid/nvim-lspinstall'
 
 -- setup some configurations
 
@@ -83,6 +83,7 @@ opts_with_val('o','backspace','2')
 map('n','vrc',
     ':edit '..vim.fn.stdpath('config')..'/init.lua<CR>')
 map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')
+map('n','vch',':tchdir '..vim.fn.stdpath('config')..'<CR>')
 --setup terminal
 if isWin32==1 then
     map('n','term',
