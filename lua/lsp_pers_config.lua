@@ -4,14 +4,6 @@ local lsp_config=require('lspconfig')
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet='UltiSnips'
 
--- Get home dir
-local home_dir=os.getenv("HOME")
--- Get location where pip installs executables by deault
-local local_bin=os.getenv("HOME").."/.local/bin/"
--- Get location for npm global bin installs
-local npm_bin=os.getenv("HOME").."/.npm_global_new/bin/"
--- Get location of where sumneko_lua is git cloned
-local sumneko_root_path=os.getenv("HOME").."/Git-Repos/lua-language-server/"
 
 -- Configure for buffers complete
 vim.g.completion_chain_complete_list={
@@ -26,11 +18,11 @@ local map= function (type,key,value)
 end
 
 -- for java https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz
-vim.env.JAR=home_dir.."/Git-Repos/jdtls/plugins/org.eclipse.equinox.launcher_1.6.0.v20200915-1508.jar"
-vim.env.JAVA_HOME="/usr/lib/jvm/adoptopenjdk-11-openj9-amd64/"
-vim.env.JDTLS_CONFIG=home_dir.."/Git-Repos/jdtls/config_linux/"
-vim.env.GRADLE_HOME=home_dir.."/Apps/Gradle/gradle-6.7.1/"
-vim.env.WORKSPACE=home_dir.."/jdtls-workspace"
+--vim.env.JAR=home_dir.."/Git-Repos/jdtls/plugins/org.eclipse.equinox.launcher_1.6.0.v20200915-1508.jar"
+--vim.env.JAVA_HOME="/usr/lib/jvm/adoptopenjdk-11-openj9-amd64/"
+--vim.env.JDTLS_CONFIG=home_dir.."/Git-Repos/jdtls/config_linux/"
+--vim.env.GRADLE_HOME=home_dir.."/Apps/Gradle/gradle-6.7.1/"
+--vim.env.WORKSPACE=home_dir.."/jdtls-workspace"
 
 -- for restarting all lsp servers
 lspes_restart_all=function ()

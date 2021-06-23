@@ -36,6 +36,7 @@ end
 -- Add packages
 
 paq 'scrooloose/nerdtree'
+paq 'tpope/vim-sleuth' -- for tabbing
 paq 'vim-airline/vim-airline'
 paq 'vim-airline/vim-airline-themes'
 paq 'tpope/vim-fugitive'   --for git and info on airline
@@ -46,13 +47,15 @@ paq 'leafgarland/typescript-vim' -- syntax highlighting for vim
 paq 'junegunn/fzf'
 paq 'vim-scripts/taglist.vim'
 paq 'Borwe/vim-vimrc-refresher' -- For automatically refreshing vim
+paq 'Borwe/nvim-ide' -- for basic ide support
 paq 'SirVer/ultisnips' -- for snippets
 paq 'vim-test/vim-test' -- for running tests
 paq 'mhinz/vim-startify' -- for managing startup and sessions
 paq 'tkztmk/vim-vala' --for vala file support
 paq 'nanotee/luv-vimdocs' --for luv documentation
 paq 'morhetz/gruvbox'
-paq 'kabouzeid/nvim-lspinstall'
+paq 'borwe/nvim-lspinstall'
+paq 'wsdjeg/luarefvim' -- for lua 5.1 documentation
 
 -- setup some configurations
 
@@ -148,3 +151,9 @@ opts_script('g:completion_enable_auto_hover','0')
 opts_script('g:completion_enable_auto_popup','0')
 
 vim.cmd('imap <silent> <C-Space> <Plug>(completion_trigger)')
+
+-- for cmake module paths baseide plugin
+if isWin32 then
+    vim.g.baseide_cmake_gen = "Ninja"
+    vim.g.baseide_vcvars= "vcvars64.bat"
+end
