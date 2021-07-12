@@ -1,6 +1,7 @@
 -- valriables
 
 vim.cmd("packadd paq-nvim")
+require('user_globals')
 local paq=require('paq-nvim').paq
 local scopes={o=vim.o,b=vim.bo,w=vim.wo}
 local isWin32=vim.fn.has('win32')
@@ -36,6 +37,7 @@ end
 -- Add packages
 
 paq 'scrooloose/nerdtree'
+paq 'nvim-lua/plenary.nvim'
 paq 'tpope/vim-sleuth' -- for tabbing
 paq 'vim-airline/vim-airline'
 paq 'vim-airline/vim-airline-themes'
@@ -47,15 +49,20 @@ paq 'leafgarland/typescript-vim' -- syntax highlighting for vim
 paq 'junegunn/fzf'
 paq 'vim-scripts/taglist.vim'
 paq 'Borwe/vim-vimrc-refresher' -- For automatically refreshing vim
-paq 'Borwe/nvim-ide' -- for basic ide support
+-- paq 'Borwe/nvim-ide' -- for basic ide support
 paq 'SirVer/ultisnips' -- for snippets
 paq 'vim-test/vim-test' -- for running tests
 paq 'mhinz/vim-startify' -- for managing startup and sessions
 paq 'tkztmk/vim-vala' --for vala file support
 paq 'nanotee/luv-vimdocs' --for luv documentation
 paq 'morhetz/gruvbox'
-paq 'borwe/nvim-lspinstall'
+if isWin32 then
+  paq {'borwe/nvim-lspinstall', branch = 'windows_support'}
+else
+  paq 'borwe/nvim-lspinstall'
+end
 paq 'wsdjeg/luarefvim' -- for lua 5.1 documentation
+paq 'wakatime/vim-wakatime' -- wakatime
 
 -- setup some configurations
 
@@ -83,6 +90,8 @@ opts_with_val('o','backspace','2')
 
 -- mappings
 
+nvim_create_command("PTestFile",
+  "lua require('testing_mod').test_current_file()")
 map('n','vrc',
     ':edit '..vim.fn.stdpath('config')..'/init.lua<CR>')
 map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')
