@@ -69,6 +69,7 @@ local custom_on_attach_lsp=function (client)
 
     -- Set key mappings
     map('n','<Space>n','<cmd>lua vim.lsp.buf.definition()<CR>')
+    map('n','<Space>k','<cmd>lua <CR>')
     map('n','<Space>z','<cmd>lua vim.lsp.buf.hover()<CR>')
     map('n','<Space>a','<cmd>lua vim.lsp.buf.hover();vim.lsp.buf.hover()<CR>')
     map('n','<Space>i','<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -99,6 +100,7 @@ for _, server in pairs(servers) do
                         library = {
                             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                             [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                            [neovim_git_location()] = true,
                         },
                     },
                     diagnostics = {

@@ -63,6 +63,9 @@ else
 end
 paq 'wsdjeg/luarefvim' -- for lua 5.1 documentation
 paq 'wakatime/vim-wakatime' -- wakatime
+paq 'Borwe/code_runner.nvim' -- code runner
+-- code-runner setup
+require('coder_runner_setup').setup()
 
 -- setup some configurations
 
@@ -99,9 +102,9 @@ map('n','vch',':tchdir '..vim.fn.stdpath('config')..'<CR>')
 --setup terminal
 if isWin32==1 then
     map('n','term',
-    ':belowright split term://powershell<CR>')
+    ':belowright split term://cmd<CR>')
     map('n','vterm',
-    ':vsplit term://powershell<CR>')
+    ':vsplit term://cmd<CR>')
 else
     map('n','term',
     ':belowright split term://bash<CR>')
