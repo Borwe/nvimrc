@@ -11,5 +11,6 @@ function neovim_git_location()
         return "D:/Brian/Git-Repos/neovim/"
     else
         -- TODO not implemented yet
+        return ""
     end
 end
