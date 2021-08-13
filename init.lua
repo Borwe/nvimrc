@@ -38,8 +38,6 @@ end
 paq 'scrooloose/nerdtree'
 paq 'nvim-lua/plenary.nvim'
 paq 'tpope/vim-sleuth' -- for tabbing
---paq 'vim-airline/vim-airline'
---paq 'vim-airline/vim-airline-themes'
 paq 'tpope/vim-fugitive'   --for git and info on airline
 paq 'neovim/nvim-lspconfig' -- for lsp
 paq 'nvim-lua/completion-nvim' -- for completions
@@ -48,13 +46,11 @@ paq 'leafgarland/typescript-vim' -- syntax highlighting for vim
 paq 'junegunn/fzf'
 paq 'vim-scripts/taglist.vim'
 paq 'Borwe/vim-vimrc-refresher' -- For automatically refreshing vim
--- paq 'Borwe/nvim-ide' -- for basic ide support
 paq 'SirVer/ultisnips' -- for snippets
 paq 'vim-test/vim-test' -- for running tests
 paq 'mhinz/vim-startify' -- for managing startup and sessions
-paq 'tkztmk/vim-vala' --for vala file support
-paq 'nanotee/luv-vimdocs' --for luv documentation
---paq 'morhetz/gruvbox'
+paq {'tkztmk/vim-vala', depth = -3} --for vala file support
+paq {'nanotee/luv-vimdocs', depth = 4} --for luv documentation
 if isWin32 then
   paq {'borwe/nvim-lspinstall', branch = 'windows_support'}
 else
@@ -72,6 +68,7 @@ require('coder_runner_setup').setup()
 opts_with_val('o','background','dark') -- Set background
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
+vim.cmd("colorscheme desert")
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
