@@ -3,9 +3,7 @@
 require('user_globals')
 local paq=require('paq-nvim').paq
 local scopes={o=vim.o,b=vim.bo,w=vim.wo}
-local isWin32=vim.fn.has('win32')
-
--- Functions
+local isWin32=vim.fn.has('win32')==1 and true or false
 
 -- For setting options that require values
 local function opts_with_val(scope,key,value)
@@ -58,7 +56,7 @@ else
 end
 paq 'wsdjeg/luarefvim' -- for lua 5.1 documentation
 --paq 'wakatime/vim-wakatime' -- wakatime
-paq 'Borwe/code_runner.nvim' -- code runner
+paq {'Borwe/code_runner.nvim', depth = -1} -- code runner
 
 -- code-runner setup
 require('coder_runner_setup').setup()
@@ -68,7 +66,7 @@ require('coder_runner_setup').setup()
 opts_with_val('o','background','dark') -- Set background
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
-vim.cmd("colorscheme desert")
+--vim.cmd("colorscheme desert")
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
@@ -96,7 +94,7 @@ map('n','vrc',
 map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')
 map('n','vch',':tchdir '..vim.fn.stdpath('config')..'<CR>')
 --setup terminal
-if isWin32==1 then
+if isWin32 then
     map('n','term',
     ':belowright split term://cmd<CR>')
     map('n','vterm',
