@@ -34,7 +34,7 @@ end
 -- Add packages
 
 paq 'scrooloose/nerdtree'
-paq 'nvim-lua/plenary.nvim'
+paq 'nvim-lua/plenary.nvim' -- required by borwe/lspinstall.nvim
 paq 'tpope/vim-sleuth' -- for tabbing
 paq 'tpope/vim-fugitive'   --for git and info on airline
 paq 'neovim/nvim-lspconfig' -- for lsp
@@ -49,14 +49,10 @@ paq 'vim-test/vim-test' -- for running tests
 paq 'mhinz/vim-startify' -- for managing startup and sessions
 paq {'tkztmk/vim-vala', depth = -3} --for vala file support
 paq {'nanotee/luv-vimdocs', depth = 4} --for luv documentation
-if isWin32 then
-  paq {'borwe/nvim-lspinstall', branch = 'windows_support'}
-else
-  paq 'borwe/nvim-lspinstall'
-end
+paq {'borwe/lspinstall.nvim', depth = -1} --for lsp install support
 paq 'wsdjeg/luarefvim' -- for lua 5.1 documentation
 --paq 'wakatime/vim-wakatime' -- wakatime
-paq {'Borwe/code_runner.nvim', depth = -1} -- code runner
+paq {'Borwe/code_runner.nvim', branch = 'SRunCmd_feature', depth = -1} -- code runner
 
 -- code-runner setup
 require('coder_runner_setup').setup()

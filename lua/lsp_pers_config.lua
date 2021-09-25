@@ -84,10 +84,23 @@ local custom_on_attach_lsp=function (client)
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
-local lspinstall=require('lspinstall')
-lspinstall.setup()
-local servers=lspinstall.installed_servers()
-for _, server in pairs(servers) do
+local lspinstall=require('installer')
+lspinstall.setup({
+    ensure_installed = {
+        ls = {"sumneko_lua","vimls"}
+    }
+})
+
+local servers = require("installer/status/installed")
+    .get_category_modules("ls")
+
+require('installer.integrations.ls').setup({
+    enable_hook = true,
+})
+local servers = require("installer/status/installed")
+    .get_category_modules("ls")
+
+for server in pairs(servers) do
     if server == "lua" then
         lsp_config[server].setup{on_attach=custom_on_attach_lsp,
             settings = {
