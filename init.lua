@@ -50,16 +50,17 @@ paq {'tkztmk/vim-vala', depth = -3} --for vala file support
 paq {'nanotee/luv-vimdocs', depth = 4} --for luv documentation
 paq {'borwe/lspinstall.nvim', depth = -1} --for lsp install support
 paq 'wsdjeg/luarefvim' -- for lua 5.1 documentation
---paq 'wakatime/vim-wakatime' -- wakatime
-paq {'Borwe/code_runner.nvim', branch = 'SRunCmd_feature', depth = -1} -- code runner
+paq 'wakatime/vim-wakatime' -- wakatime
+paq {'Borwe/code_runner.nvim', branch = 'fix1', depth = -1} -- code runner
 
--- code-runner setup
-require('coder_runner_setup').setup()
 -- setup nvim-cmp
 require('nvim_cmp_setup').setup()
+-- code-runner setup
+require('coder_runner_setup').setup()
 
 -- setup some configurations
 opts_with_val('o','background','dark') -- Set background
+vim.cmd(":colorscheme evening")
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
 --vim.cmd("colorscheme desert
