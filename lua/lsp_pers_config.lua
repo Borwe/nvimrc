@@ -101,7 +101,7 @@ local servers = require("installer/status/installed")
     .get_category_modules("ls")
 
 for server in pairs(servers) do
-    if server == "lua" then
+    if server == "sumneko_lua" then
         lsp_config[server].setup{on_attach=custom_on_attach_lsp,
             settings = {
                 Lua = {
