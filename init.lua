@@ -117,11 +117,6 @@ map('i','{','{}<C-[>i')
 map('i','[','[]<C-[>i')
 map('i','(','()<C-[>i')
 
--- for ultisnips
-opts_script('g:UltiSnipsExpandTrigger','\"<C-e>\"')
-opts_script('g:UltiSnipsJumpForwardTrigger','\"<C-j>\"')
-opts_script('g:UltiSnipsJumpBackwardTrigger','\"<C-k>\"')
-
 -- for showing fzf
 map('n','<C-f>','<cmd>FZF<CR>')
 
@@ -138,10 +133,6 @@ require('tab_prompt')
 
 -- add command to switch buffers
 require('buffer_prompt')
-
--- add command to support ultisnips
-require('ultisnips_pops')
-map('i','<C-s>','<cmd>UltiSnipsPopUp<CR>')
 
 -- add for lsp support
 require('lsp_pers_config')
