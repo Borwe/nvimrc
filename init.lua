@@ -55,6 +55,8 @@ paq {'Borwe/code_runner.nvim', branch = 'SRunCmd_feature', depth = -1} -- code r
 
 -- code-runner setup
 require('coder_runner_setup').setup()
+-- setup nvim-cmp
+require('nvim_cmp_setup').setup()
 
 -- setup some configurations
 opts_with_val('o','background','dark') -- Set background

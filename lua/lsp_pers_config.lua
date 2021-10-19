@@ -102,7 +102,11 @@ local servers = require("installer/status/installed")
 
 for server in pairs(servers) do
     if server == "sumneko_lua" then
-        lsp_config[server].setup{on_attach=custom_on_attach_lsp,
+        lsp_config[server].setup{
+            capabilities = require('cmp_nvim_lsp')
+            .update_capabilities(vim.lsp.protocol
+                .make_client_capabilities()),
+            on_attach=custom_on_attach_lsp,
             settings = {
                 Lua = {
                     runtime = {
@@ -124,7 +128,11 @@ for server in pairs(servers) do
             },
         }
     else
-        lsp_config[server].setup{on_attach=custom_on_attach_lsp}
+        lsp_config[server].setup{
+            capabilities = require('cmp_nvim_lsp')
+            .update_capabilities(vim.lsp.protocol
+                .make_client_capabilities()),
+            on_attach=custom_on_attach_lsp}
     end
 end
 
