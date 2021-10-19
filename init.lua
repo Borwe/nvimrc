@@ -10,7 +10,6 @@ local function opts_with_val(scope,key,value)
     scopes[scope][key]=value
 end
 
-
 -- Create mappings
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
@@ -33,19 +32,19 @@ end
 
 -- Add packages
 
-paq 'scrooloose/nerdtree'
 paq 'nvim-lua/plenary.nvim' -- required by borwe/lspinstall.nvim
 paq 'tpope/vim-sleuth' -- for tabbing
 paq 'tpope/vim-fugitive'   --for git and info on airline
 paq 'neovim/nvim-lspconfig' -- for lsp
-paq 'nvim-lua/completion-nvim' -- for completions
-paq 'steelsojka/completion-buffers' -- for completions with buffers
 paq 'leafgarland/typescript-vim' -- syntax highlighting for vim
+-- START FOR COMPLETIONS
+paq 'hrsh7th/cmp-nvim-lsp'
+paq 'hrsh7th/cmp-buffer'
+paq 'hrsh7th/nvim-cmp'
+paq 'quangnguyen30192/cmp-nvim-ultisnips' -- for ulti snips completion
+-- DONE FOR COMPLETIONS
 paq 'junegunn/fzf'
-paq 'vim-scripts/taglist.vim'
-paq 'Borwe/vim-vimrc-refresher' -- For automatically refreshing vim
 paq 'SirVer/ultisnips' -- for snippets
-paq 'vim-test/vim-test' -- for running tests
 paq 'mhinz/vim-startify' -- for managing startup and sessions
 paq {'tkztmk/vim-vala', depth = -3} --for vala file support
 paq {'nanotee/luv-vimdocs', depth = 4} --for luv documentation
@@ -58,11 +57,16 @@ paq {'Borwe/code_runner.nvim', branch = 'SRunCmd_feature', depth = -1} -- code r
 require('coder_runner_setup').setup()
 
 -- setup some configurations
-
 opts_with_val('o','background','dark') -- Set background
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
---vim.cmd("colorscheme desert")
+--vim.cmd("colorscheme desert
+--setting up netrw
+vim.api.nvim_set_var('netrw_browse_split',4)
+vim.api.nvim_set_var('netrw_liststyle',3)
+vim.api.nvim_set_var('netrw_altv',1)
+vim.api.nvim_set_var('netrw_winsize',25)
+vim.api.nvim_set_var('netrw_banner',0)
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
@@ -84,22 +88,22 @@ opts_with_val('o','backspace','2')
 -- mappings
 
 nvim_create_command("PTestFile",
-  "lua require('testing_mod').test_current_file()")
+"lua require('testing_mod').test_current_file()")
 map('n','vrc',
-    ':edit '..vim.fn.stdpath('config')..'/init.lua<CR>')
+':edit '..vim.fn.stdpath('config')..'/init.lua<CR>')
 map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')
 map('n','vch',':tchdir '..vim.fn.stdpath('config')..'<CR>')
 --setup terminal
 if isWin32 then
-    map('n','term',
-    ':belowright split term://cmd<CR>')
-    map('n','vterm',
-    ':vsplit term://cmd<CR>')
+  map('n','term',
+  ':belowright split term://cmd<CR>')
+  map('n','vterm',
+  ':vsplit term://cmd<CR>')
 else
-    map('n','term',
-    ':belowright split term://bash<CR>')
-    map('n','vterm',
-    ':vsplit term://bash<CR>')
+  map('n','term',
+  ':belowright split term://bash<CR>')
+  map('n','vterm',
+  ':vsplit term://bash<CR>')
 end
 --for exiting insert mode in terminal
 map('t','<C-e>','<C-\\><C-N>')
@@ -156,6 +160,6 @@ vim.cmd('imap <silent> <C-Space> <Plug>(completion_trigger)')
 
 -- for cmake module paths baseide plugin
 if isWin32 then
-    vim.g.baseide_cmake_gen = "Ninja"
-    vim.g.baseide_vcvars= "vcvars64.bat"
+  vim.g.baseide_cmake_gen = "Ninja"
+  vim.g.baseide_vcvars= "vcvars64.bat"
 end
