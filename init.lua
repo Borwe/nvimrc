@@ -130,7 +130,7 @@ map('n','vrs+','<cmd>resize +5<CR>')
 map('n','vrs-','<cmd>resize -5<CR>')
 
 -- for nerdtree
-map('n','ntree','<cmd>NERDTree<CR>')
+map('n','ntree','<cmd>Vexplore<CR>')
 -- Set the tab cmd
 require('tab_prompt')
 
