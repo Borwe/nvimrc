@@ -1,7 +1,9 @@
--- valriables
-
-require('user_globals')
+-- setup paq
+require('paq_setup').setup()
 local paq=require('paq-nvim').paq
+
+-- valriables
+require('user_globals')
 local scopes={o=vim.o,b=vim.bo,w=vim.wo}
 local isWin32=vim.fn.has('win32')==1 and true or false
 
@@ -60,10 +62,9 @@ require('coder_runner_setup').setup()
 
 -- setup some configurations
 opts_with_val('o','background','dark') -- Set background
-vim.cmd(":colorscheme evening")
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
---vim.cmd("colorscheme desert
+vim.cmd("colorscheme desert")
 --setting up netrw
 vim.api.nvim_set_var('netrw_browse_split',4)
 vim.api.nvim_set_var('netrw_liststyle',3)
