@@ -1,6 +1,6 @@
 -- setup paq
 require('paq_setup').setup()
-local paq=require('paq-nvim').paq
+
 
 -- valriables
 require('user_globals')
@@ -33,27 +33,29 @@ end
 
 
 -- Add packages
+require("paq"){
 
-paq 'nvim-lua/plenary.nvim' -- required by borwe/lspinstall.nvim
-paq 'tpope/vim-sleuth' -- for tabbing
-paq 'tpope/vim-fugitive'   --for git and info on airline
-paq 'neovim/nvim-lspconfig' -- for lsp
-paq 'leafgarland/typescript-vim' -- syntax highlighting for vim
+ 'nvim-lua/plenary.nvim'; -- required by borwe/lspinstall.nvim
+ 'tpope/vim-sleuth'; -- for tabbing
+ 'tpope/vim-fugitive';   --for git and info on airline
+ 'neovim/nvim-lspconfig'; -- for lsp
+ 'leafgarland/typescript-vim'; -- syntax highlighting for vim
 -- START FOR COMPLETIONS
-paq 'hrsh7th/cmp-nvim-lsp'
-paq 'hrsh7th/cmp-buffer'
-paq 'hrsh7th/nvim-cmp'
-paq 'quangnguyen30192/cmp-nvim-ultisnips' -- for ulti snips completion
+ 'hrsh7th/cmp-nvim-lsp';
+ 'hrsh7th/cmp-buffer';
+ 'hrsh7th/nvim-cmp';
+ 'quangnguyen30192/cmp-nvim-ultisnips'; -- for ulti snips completion
 -- DONE FOR COMPLETIONS
-paq 'junegunn/fzf'
-paq 'SirVer/ultisnips' -- for snippets
-paq 'mhinz/vim-startify' -- for managing startup and sessions
-paq {'tkztmk/vim-vala', depth = -3} --for vala file support
-paq {'nanotee/luv-vimdocs', depth = 4} --for luv documentation
-paq {'borwe/lspinstall.nvim', depth = -1} --for lsp install support
-paq 'wsdjeg/luarefvim' -- for lua 5.1 documentation
-paq 'wakatime/vim-wakatime' -- wakatime
-paq {'Borwe/code_runner.nvim', branch = 'fix1', depth = -1} -- code runner
+ 'junegunn/fzf';
+ 'SirVer/ultisnips'; -- for snippets
+ 'mhinz/vim-startify'; -- for managing startup and sessions
+ {'tkztmk/vim-vala', depth = -3}; --for vala file support
+ {'nanotee/luv-vimdocs', depth = 4}; --for luv documentation
+ {'borwe/lspinstall.nvim', depth = -1}; --for lsp install support
+ 'wsdjeg/luarefvim'; -- for lua 5.1 documentation
+ 'wakatime/vim-wakatime'; -- wakatime
+ {'Borwe/code_runner.nvim', branch = 'fix1', depth = -1}; -- code runner
+}
 
 -- setup nvim-cmp
 require('nvim_cmp_setup').setup()
