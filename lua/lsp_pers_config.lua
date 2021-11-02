@@ -87,7 +87,7 @@ end
 local lspinstall=require('installer')
 lspinstall.setup({
     ensure_installed = {
-        ls = {"sumneko_lua","vimls"}
+        ls = {"sumneko_lua","vimls","clangd"}
     }
 })
 
