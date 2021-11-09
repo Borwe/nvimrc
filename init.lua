@@ -49,7 +49,6 @@ require("paq"){
  'junegunn/fzf';
  'SirVer/ultisnips'; -- for snippets
  'mhinz/vim-startify'; -- for managing startup and sessions
- {'tkztmk/vim-vala', depth = -3}; --for vala file support
  {'nanotee/luv-vimdocs', depth = 4}; --for luv documentation
  {'borwe/lspinstall.nvim', depth = -1}; --for lsp install support
  'wsdjeg/luarefvim'; -- for lua 5.1 documentation
