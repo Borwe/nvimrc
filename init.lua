@@ -40,6 +40,7 @@ require("paq"){
  'tpope/vim-fugitive';   --for git and info on airline
  'neovim/nvim-lspconfig'; -- for lsp
  'leafgarland/typescript-vim'; -- syntax highlighting for vim
+ 'kyazdani42/nvim-tree.lua'; -- for nvim-tree
 -- START FOR COMPLETIONS
  'hrsh7th/cmp-nvim-lsp';
  'hrsh7th/cmp-buffer';
@@ -50,9 +51,9 @@ require("paq"){
  'SirVer/ultisnips'; -- for snippets
  'mhinz/vim-startify'; -- for managing startup and sessions
  {'nanotee/luv-vimdocs', depth = 4}; --for luv documentation
- {'borwe/lspinstall.nvim', depth = -1}; --for lsp install support
  'wsdjeg/luarefvim'; -- for lua 5.1 documentation
  'wakatime/vim-wakatime'; -- wakatime
+ 'williamboman/nvim-lsp-installer'; -- lsp installer support
  {'Borwe/code_runner.nvim', branch = 'fix1', depth = -1}; -- code runner
 }
 
@@ -60,6 +61,12 @@ require("paq"){
 require('nvim_cmp_setup').setup()
 -- code-runner setup
 require('coder_runner_setup').setup()
+--setup nvim-tree
+require('nvim-tree').setup({
+  update_cwd=true
+})
+-- add for lsp support
+require('lsp_pers_config')
 
 -- setup some configurations
 opts_with_val('o','background','dark') -- Set background
@@ -130,15 +137,13 @@ map('n','vrs+','<cmd>resize +5<CR>')
 map('n','vrs-','<cmd>resize -5<CR>')
 
 -- for nerdtree
-map('n','ntree','<cmd>Vexplore<CR>')
+map('n','ntree','<cmd>NvimTreeToggle<CR>')
 -- Set the tab cmd
 require('tab_prompt')
 
 -- add command to switch buffers
 require('buffer_prompt')
 
--- add for lsp support
-require('lsp_pers_config')
 
 --remap for scrolling
 vim.cmd('inoremap <expr> <Tab> pumvisible() ? "\\<C-n>" : "\\<Tab>"')

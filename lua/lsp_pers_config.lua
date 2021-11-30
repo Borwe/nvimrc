@@ -1,5 +1,6 @@
 require("user_globals")
 local lsp_config=require('lspconfig')
+local lsp_installer = require('nvim-lsp-installer')
 
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet='UltiSnips'
@@ -84,25 +85,10 @@ local custom_on_attach_lsp=function (client)
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
-local lspinstall=require('installer')
-lspinstall.setup({
-    ensure_installed = {
-        ls = {"sumneko_lua","vimls","clangd"}
-    }
-})
 
-local servers = require("installer/status/installed")
-    .get_category_modules("ls")
-
-require('installer.integrations.ls').setup({
-    enable_hook = true,
-})
-local servers = require("installer/status/installed")
-    .get_category_modules("ls")
-
-for server in pairs(servers) do
-    if server == "sumneko_lua" then
-        lsp_config[server].setup{
+lsp_installer.on_server_ready(function(server)
+    if server.name == "sumneko_lua" then
+        server:setup({
             capabilities = require('cmp_nvim_lsp')
             .update_capabilities(vim.lsp.protocol
                 .make_client_capabilities()),
@@ -126,13 +112,17 @@ for server in pairs(servers) do
                     },
                 },
             },
-        }
+        })
     else
-        lsp_config[server].setup{
+        local opts = {
+
             capabilities = require('cmp_nvim_lsp')
             .update_capabilities(vim.lsp.protocol
                 .make_client_capabilities()),
-            on_attach=custom_on_attach_lsp}
+            on_attach=custom_on_attach_lsp
+        }
+        server:setup(opts)
     end
-end
+end)
+
 
