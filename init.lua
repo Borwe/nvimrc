@@ -54,6 +54,7 @@ require("paq"){
  'wsdjeg/luarefvim'; -- for lua 5.1 documentation
  'wakatime/vim-wakatime'; -- wakatime
  'williamboman/nvim-lsp-installer'; -- lsp installer support
+ 'olimorris/onedarkpro.nvim'; -- theme
  {'Borwe/code_runner.nvim', branch = 'fix1', depth = -1}; -- code runner
 }
 
@@ -72,7 +73,8 @@ require('lsp_pers_config')
 opts_with_val('o','background','dark') -- Set background
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
-vim.cmd("colorscheme desert")
+vim.o.background="dark"
+require('onedarkpro').load()
 --setting up netrw
 vim.api.nvim_set_var('netrw_browse_split',4)
 vim.api.nvim_set_var('netrw_liststyle',3)
