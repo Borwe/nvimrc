@@ -37,6 +37,7 @@ require("paq"){
 
  'nvim-lua/plenary.nvim'; -- required by borwe/lspinstall.nvim
  'tpope/vim-sleuth'; -- for tabbing
+ 'nvim-lualine/lualine.nvim'; -- lualine
  'tpope/vim-fugitive';   --for git and info on airline
  'neovim/nvim-lspconfig'; -- for lsp
  'leafgarland/typescript-vim'; -- syntax highlighting for vim
@@ -73,6 +74,9 @@ require('lsp_pers_config')
 opts_with_val('o','background','dark') -- Set background
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
+-- setup lualine
+require('lualine').setup()
+-- setup the background theme
 vim.o.background="dark"
 require('onedarkpro').load()
 --setting up netrw
