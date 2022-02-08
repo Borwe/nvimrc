@@ -1,5 +1,4 @@
 require("user_globals")
-local lsp_config=require('lspconfig')
 local lsp_installer = require('nvim-lsp-installer')
 
 -- Configure to work with Ultisnips templates
@@ -80,8 +79,7 @@ local custom_on_attach_lsp=function (client)
     map('n','<Space>q','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
     map('n','<Space>w','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
     map('n','<Space>m','<cmd>lua vim.lsp.buf.declaration()<CR>')
-    map('n','<Space>x','<cmd>lua vim.lsp.diagnostic.get_all()<CR>')
-    map('n','X','<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+    map('n','<Space>x','<cmd>lua vim.diagnostic.open_float()<CR>')
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
