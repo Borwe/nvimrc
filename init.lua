@@ -165,6 +165,9 @@ opts_script('g:completion_enable_auto_popup','0')
 
 vim.cmd('imap <silent> <C-Space> <Plug>(completion_trigger)')
 
+-- make file with .sol be detected as solidity filetype
+vim.cmd("autocmd BufRead *.sol exec 'set filetype=solidity'")
+
 -- for cmake module paths baseide plugin
 if isWin32 then
   vim.g.baseide_cmake_gen = "Ninja"
