@@ -56,7 +56,7 @@ require("paq"){
  'wakatime/vim-wakatime'; -- wakatime
  'williamboman/nvim-lsp-installer'; -- lsp installer support
  'olimorris/onedarkpro.nvim'; -- theme
- {'Borwe/code_runner.nvim', branch = 'fix1', depth = -1}; -- code runner
+ {'Borwe/code_runner.nvim', depth = -1}; -- code runner
 }
 
 -- setup nvim-cmp
