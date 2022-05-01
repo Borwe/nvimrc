@@ -1,10 +1,10 @@
 {
     "testing": "echo Wembe",
-    "cmake-refresh": "mkdir build & cd build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && cp compile_commands.json ../",
-    "cmake-refresh-vcpkg":"mkdir build & cd build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOL_CHAIN_FILE= ~/Git-Repos/vcpkg/scripts/buildsystems/vcpkg.cmake && cp compile_commands.json ../",
-    "cmake-build": "mkdir build & cd build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && cmake --build . --config Debug && cp compile_commands.json ../",
-    "cmake-win-refresh": "vcvars64 && mkdir build & cd build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && copy compile_commands.json ..\\",
-    "cmake-win-build": "vcvars64 && mkdir build & cd build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && copy compile_commands.json ..\\ && cmake --build . --config Debug",
+    "cmake-refresh": "mkdir $dir/build; cd $dir/build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && cp compile_commands.json ../",
+    "cmake-refresh-vcpkg":"mkdir $dir/build; cd $dir/build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/home/brian/Git-Repos/vcpkg/scripts/buildsystems/vcpkg.cmake && cp compile_commands.json ../",
+    "cmake-build": "mkdir build; cd build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && cmake --build . --config Debug && cp compile_commands.json ../",
+    "cmake-win-refresh": "vcvars64 && mkdir $dir/build & cd $dir/build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && copy compile_commands.json ..\\",
+    "cmake-win-build": "vcvars64 && mkdir $dir/build & cd $dir/build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && copy compile_commands.json ..\\ && cmake --build . --config Debug",
     "mvn-test":"mvn clean test",
     "mvn-clean":"mvn clean",
     "mvn-package":"mvn clean package"
