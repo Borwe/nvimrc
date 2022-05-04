@@ -79,12 +79,6 @@ require('lualine').setup()
 -- setup the background theme
 vim.o.background="dark"
 require('onedarkpro').load()
---setting up netrw
-vim.api.nvim_set_var('netrw_browse_split',4)
-vim.api.nvim_set_var('netrw_liststyle',3)
-vim.api.nvim_set_var('netrw_altv',1)
-vim.api.nvim_set_var('netrw_winsize',25)
-vim.api.nvim_set_var('netrw_banner',0)
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
@@ -92,16 +86,17 @@ opts("number")
 opts("relativenumber")
 opts("autoindent")
 opts("autoread")
-opts_with_val('o','encoding','utf-8')
 opts("expandtab")
 opts("smartindent")
-opts_with_val('o','tabstop',4)
-opts_with_val('o','softtabstop',4)
-opts_with_val('o','shiftwidth',4)
-opts_with_val('o','foldmethod','syntax')
-opts_with_val('o','path',vim.o.path.."**")
 opts("wildmenu")
-opts_with_val('o','backspace','2')
+vim.api.nvim_set_option('encoding','utf-8')
+vim.api.nvim_set_option('tabstop',2)
+vim.api.nvim_set_option('tabstop',2)
+vim.api.nvim_set_option('softtabstop',2)
+vim.api.nvim_set_option('shiftwidth',2)
+vim.api.nvim_set_option('foldmethod','syntax')
+vim.api.nvim_set_option('backspace','2')
+vim.api.nvim_set_option('path',vim.o.path.."**")
 
 -- mappings
 
@@ -159,17 +154,5 @@ vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
 opts_with_val('o','completeopt','menuone,noinsert,noselect')
 opts_with_val('o','shortmess',vim.o.shortmess..'c')
 
--- for nvim-completion remove auto hover
-opts_script('g:completion_enable_auto_hover','0')
-opts_script('g:completion_enable_auto_popup','0')
-
-vim.cmd('imap <silent> <C-Space> <Plug>(completion_trigger)')
-
 -- make file with .sol be detected as solidity filetype
 vim.cmd("autocmd BufRead *.sol exec 'set filetype=solidity'")
-
--- for cmake module paths baseide plugin
-if isWin32 then
-  vim.g.baseide_cmake_gen = "Ninja"
-  vim.g.baseide_vcvars= "vcvars64.bat"
-end

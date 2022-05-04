@@ -9,5 +9,6 @@
     "mvn-clean":"mvn clean",
     "mvn-package":"mvn clean package",
     "cargo-run":"cargo run",
-    "cargo-build":"cargo build"
+    "cargo-build":"cargo build",
+    "ng-test":"ng test"
 }
