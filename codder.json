@@ -7,5 +7,7 @@
     "cmake-win-build": "vcvars64 && mkdir $dir/build & cd $dir/build && cmake ../ -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=Debug && copy compile_commands.json ..\\ && cmake --build . --config Debug",
     "mvn-test":"mvn clean test",
     "mvn-clean":"mvn clean",
-    "mvn-package":"mvn clean package"
+    "mvn-package":"mvn clean package",
+    "cargo-run":"cargo run",
+    "cargo-build":"cargo build"
 }
