@@ -1,5 +1,6 @@
 -- setup paq
 require('paq_setup').setup()
+require('neovide_setup').setup()
 
 
 -- valriables

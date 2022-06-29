@@ -17,13 +17,6 @@ local map= function (type,key,value)
     vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap=true, silent=true});
 end
 
--- for java https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz
---vim.env.JAR=home_dir.."/Git-Repos/jdtls/plugins/org.eclipse.equinox.launcher_1.6.0.v20200915-1508.jar"
---vim.env.JAVA_HOME="/usr/lib/jvm/adoptopenjdk-11-openj9-amd64/"
---vim.env.JDTLS_CONFIG=home_dir.."/Git-Repos/jdtls/config_linux/"
---vim.env.GRADLE_HOME=home_dir.."/Apps/Gradle/gradle-6.7.1/"
---vim.env.WORKSPACE=home_dir.."/jdtls-workspace"
-
 -- for restarting all lsp servers
 lspes_restart_all=function ()
     vim.lsp.stop_client(vim.lsp.get_active_clients())
