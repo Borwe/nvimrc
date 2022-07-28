@@ -94,7 +94,6 @@ lsp_installer.on_server_ready(function(server)
                         library = {
                             [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                             [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                            [neovim_git_location()] = true,
                         },
                     },
                     diagnostics = {

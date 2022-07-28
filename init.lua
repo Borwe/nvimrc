@@ -36,7 +36,7 @@ end
 -- Add packages
 require("paq"){
 
- 'nvim-lua/plenary.nvim'; -- required by borwe/lspinstall.nvim
+ 'nvim-lua/plenary.nvim'; -- required by telescope
  'tpope/vim-sleuth'; -- for tabbing
  'nvim-lualine/lualine.nvim'; -- lualine
  'tpope/vim-fugitive';   --for git and info on airline
@@ -49,7 +49,6 @@ require("paq"){
  'hrsh7th/nvim-cmp';
  'quangnguyen30192/cmp-nvim-ultisnips'; -- for ulti snips completion
 -- DONE FOR COMPLETIONS
- 'junegunn/fzf';
  'SirVer/ultisnips'; -- for snippets
  'mhinz/vim-startify'; -- for managing startup and sessions
  {'nanotee/luv-vimdocs', depth = 4}; --for luv documentation
@@ -58,6 +57,7 @@ require("paq"){
  'williamboman/nvim-lsp-installer'; -- lsp installer support
  'olimorris/onedarkpro.nvim'; -- theme
  {'Borwe/code_runner.nvim', depth = -1}; -- code runner
+ {'nvim-telescope/telescope.nvim', branch = '0.1.0'}; -- get telescope
 }
 
 -- setup nvim-cmp
@@ -68,6 +68,8 @@ require('coder_runner_setup').setup()
 require('nvim-tree').setup({
   update_cwd=true
 })
+-- setup telescope commands
+require('telescope_setup').setup()
 -- add for lsp support
 require('lsp_pers_config')
 
@@ -129,9 +131,6 @@ map('i','{','{}<C-[>i')
 map('i','[','[]<C-[>i')
 map('i','(','()<C-[>i')
 
--- for showing fzf
-map('n','<C-f>','<cmd>FZF<CR>')
-
 -- for resizing
 map('n','rs+','<cmd>vertical resize +5<CR>')
 map('n','rs-','<cmd>vertical resize -5<CR>')
@@ -146,10 +145,6 @@ require('tab_prompt')
 -- add command to switch buffers
 require('buffer_prompt')
 
-
---remap for scrolling
-vim.cmd('inoremap <expr> <Tab> pumvisible() ? "\\<C-n>" : "\\<Tab>"')
-vim.cmd('inoremap <expr> <S-Tab> pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
 
 -- Set completeopt
 opts_with_val('o','completeopt','menuone,noinsert,noselect')
