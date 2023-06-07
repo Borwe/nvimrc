@@ -1,4 +1,3 @@
-require("user_globals")
 local lspconfig = require('lspconfig')
 
 -- Configure to work with Ultisnips templates
@@ -23,36 +22,10 @@ lspes_restart_all=function ()
     vim.cmd('edit')
     vim.cmd('edit')
 end
-nvim_create_command('LspRestart',"lua lspes_restart_all()")
-
--- for checking status of lsp servers per buffer
-lspes_buffer_running=function ()
-    local clientMaps=vim.lsp.buf_get_clients(0);
-
-    vim.api.nvim_command('echom "current running lsp servers on buffer:\n"')
-
-    for k, v in pairs(clientMaps) do
-        vim.api.nvim_command('echom "ID: '..k..
-            ' CLIENT: '..tostring(v.name)..'"')
-    end
-end
-nvim_create_command('LspClientBuffer',"lua lspes_buffer_running()")
-
--- for checking status of lsp-servers for current nvim instance
-lspes_running=function ()
-    local clientMaps=vim.lsp.get_active_clients();
-
-    vim.api.nvim_command('echom "current running lsp servers:\n"')
-
-    for k, v in pairs(clientMaps) do
-        vim.api.nvim_command('echom "ID: '..k..' CLIENT: '..tostring(v.name)..'"')
-    end
-end
-nvim_create_command('LspClientsAll',"lua lspes_running()")
-
+vim.api.nvim_create_user_command('LspRestart', lspes_restart_all, {['bang']=true})
 
 -- for renaming using lsp
-nvim_create_command('LspRename','lua vim.lsp.buf.rename()')
+vim.api.nvim_create_user_command('LspRename', vim.lsp.buf.rename, {['bang']=true})
 
 
 
