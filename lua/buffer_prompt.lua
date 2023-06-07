@@ -1,4 +1,3 @@
-require("user_globals")
 buf_sel={}
 
 function buf_sel.buffer_select()
@@ -8,4 +7,5 @@ function buf_sel.buffer_select()
     vim.cmd("buffer "..bufNum)
 end
 
-nvim_create_command('Buff',"lua buf_sel.buffer_select()")
+vim.api.nvim_create_user_command('Buff',
+    buf_sel.buffer_select, {['bang']=true})

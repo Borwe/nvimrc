@@ -4,7 +4,6 @@ require('neovide_setup').setup()
 
 
 -- valriables
-require('user_globals')
 local scopes={o=vim.o,b=vim.bo,w=vim.wo}
 local isWin32=vim.fn.has('win32')==1 and true or false
 
@@ -108,8 +107,7 @@ vim.api.nvim_set_option('path',vim.o.path.."**")
 
 -- mappings
 
-nvim_create_command("PTestFile",
-"lua require('testing_mod').test_current_file()")
+vim.api.nvim_create_user_command("PTestFile", require('testing_mod').test_current_file, {['bang']=true})
 map('n','vrc',
 ':edit '..vim.fn.stdpath('config')..'/init.lua<CR>')
 map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')

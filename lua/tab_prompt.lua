@@ -1,4 +1,3 @@
-require("user_globals")
 tab_select={}
 
 function tab_select.selector()
@@ -8,5 +7,6 @@ function tab_select.selector()
     vim.cmd('normal :tabn '..tabNum)
 end
 
-nvim_create_command('Tab',"lua tab_select.selector()")
+vim.api.nvim_create_user_command('Tab',
+    tab_select.selector, {['bang']=true})
 

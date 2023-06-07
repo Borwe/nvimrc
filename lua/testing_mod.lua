@@ -1,4 +1,3 @@
-require("user_globals")
 local M = {}
 
 function M.test_current_file()
