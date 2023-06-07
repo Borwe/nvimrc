@@ -1,5 +1,5 @@
 require("user_globals")
-local lsp_installer = require('nvim-lsp-installer')
+local lspconfig = require('lspconfig')
 
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet='UltiSnips'
@@ -76,43 +76,41 @@ local custom_on_attach_lsp=function (client)
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
-
-lsp_installer.on_server_ready(function(server)
-    if server.name == "sumneko_lua" then
-        server:setup({
-            capabilities = require('cmp_nvim_lsp')
-            .update_capabilities(vim.lsp.protocol
-                .make_client_capabilities()),
-            on_attach=custom_on_attach_lsp,
-            settings = {
-                Lua = {
-                    runtime = {
-                        version = "LuaJIT",
-                        path = vim.split(package.path, ';'),
-                    },
-                    workspace = {
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+require('mason-lspconfig').setup {
+    ensure_installed = {"lua_ls"},
+    handlers = {
+        function (server_name)
+            lspconfig[server_name].setup {
+                capabilities = require('cmp_nvim_lsp')
+                .default_capabilities(vim.lsp.protocol
+                    .make_client_capabilities()),
+                on_attach=custom_on_attach_lsp
+            }
+        end,
+        ["lua_ls"] = function()
+            lspconfig.lua_ls.setup {
+                capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
+                    .make_client_capabilities()),
+                on_attach=custom_on_attach_lsp,
+                settings = {
+                    Lua = {
+                        runtime = {
+                            version = "LuaJIT",
+                            path = vim.split(package.path, ';'),
+                        },
+                        workspace = {
+                            library = {
+                                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                            },
+                        },
+                        diagnostics = {
+                            globals = {"vim"},
+                            disable = {"lowercase-global", "unused-function"},
                         },
                     },
-                    diagnostics = {
-                        globals = {"vim"},
-                        disable = {"lowercase-global", "unused-function"},
-                    },
                 },
-            },
-        })
-    else
-        local opts = {
-
-            capabilities = require('cmp_nvim_lsp')
-            .update_capabilities(vim.lsp.protocol
-                .make_client_capabilities()),
-            on_attach=custom_on_attach_lsp
-        }
-        server:setup(opts)
-    end
-end)
-
-
+            }
+        end
+    }
+}

@@ -1,3 +1,3 @@
 GuiTabline 0
 GuiPopupmenu 0
-GuiFont! Courier:h 9
+GuiFont! Lucida\ Console:h 14

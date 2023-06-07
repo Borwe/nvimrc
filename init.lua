@@ -36,28 +36,31 @@ end
 -- Add packages
 require("paq"){
 
- 'nvim-lua/plenary.nvim'; -- required by telescope
- 'tpope/vim-sleuth'; -- for tabbing
- 'nvim-lualine/lualine.nvim'; -- lualine
- 'tpope/vim-fugitive';   --for git and info on airline
- 'neovim/nvim-lspconfig'; -- for lsp
- 'leafgarland/typescript-vim'; -- syntax highlighting for vim
- 'kyazdani42/nvim-tree.lua'; -- for nvim-tree
+ 'nvim-lua/plenary.nvim', -- required by telescope
+ 'tpope/vim-sleuth', -- for tabbing
+ 'nvim-lualine/lualine.nvim', -- lualine
+ 'tpope/vim-fugitive',   --for git and info on airline
+ 'neovim/nvim-lspconfig', -- for lsp
+ 'leafgarland/typescript-vim', -- syntax highlighting for vim
+ 'kyazdani42/nvim-tree.lua', -- for nvim-tree
 -- START FOR COMPLETIONS
- 'hrsh7th/cmp-nvim-lsp';
- 'hrsh7th/cmp-buffer';
- 'hrsh7th/nvim-cmp';
- 'quangnguyen30192/cmp-nvim-ultisnips'; -- for ulti snips completion
+ 'hrsh7th/cmp-nvim-lsp',
+ 'hrsh7th/cmp-buffer',
+ 'hrsh7th/nvim-cmp',
+ 'quangnguyen30192/cmp-nvim-ultisnips', -- for ulti snips completion
 -- DONE FOR COMPLETIONS
- 'SirVer/ultisnips'; -- for snippets
- 'mhinz/vim-startify'; -- for managing startup and sessions
- {'nanotee/luv-vimdocs', depth = 4}; --for luv documentation
- 'wsdjeg/luarefvim'; -- for lua 5.1 documentation
- 'wakatime/vim-wakatime'; -- wakatime
- 'williamboman/nvim-lsp-installer'; -- lsp installer support
- 'olimorris/onedarkpro.nvim'; -- theme
- {'Borwe/code_runner.nvim', depth = -1}; -- code runner
- {'nvim-telescope/telescope.nvim', branch = '0.1.0'}; -- get telescope
+-- START LspInstall
+ "williamboman/mason.nvim",
+ "williamboman/mason-lspconfig.nvim",
+-- DONE LspInstall
+ 'SirVer/ultisnips', -- for snippets
+ 'mhinz/vim-startify', -- for managing startup and sessions
+ {'nanotee/luv-vimdocs', depth = 4}, --for luv documentation
+ 'wsdjeg/luarefvim', -- for lua 5.1 documentation
+ 'wakatime/vim-wakatime', -- wakatime
+ 'olimorris/onedarkpro.nvim', -- theme
+ {'Borwe/code_runner.nvim', depth = -1}, -- code runner
+ {'nvim-telescope/telescope.nvim', branch = '0.1.0'}, -- get telescope
 }
 
 -- setup nvim-cmp
@@ -68,6 +71,8 @@ require('coder_runner_setup').setup()
 require('nvim-tree').setup({
   update_cwd=true
 })
+--setup mason
+require('mason').setup()
 -- setup telescope commands
 require('telescope_setup').setup()
 -- add for lsp support
