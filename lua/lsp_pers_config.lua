@@ -49,6 +49,11 @@ local custom_on_attach_lsp=function (client)
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
+lspconfig["zls"].setup{
+    capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
+        .make_client_capabilities()),
+    on_attach=custom_on_attach_lsp
+}
 require('mason-lspconfig').setup {
     ensure_installed = {"lua_ls"},
     handlers = {

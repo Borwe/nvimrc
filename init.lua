@@ -54,11 +54,11 @@ require("paq"){
 -- DONE LspInstall
  'SirVer/ultisnips', -- for snippets
  'mhinz/vim-startify', -- for managing startup and sessions
- {'nanotee/luv-vimdocs', depth = 4}, --for luv documentation
+ {'nanotee/luv-vimdocs'}, --for luv documentation
  'wsdjeg/luarefvim', -- for lua 5.1 documentation
  'wakatime/vim-wakatime', -- wakatime
  'olimorris/onedarkpro.nvim', -- theme
- {'Borwe/code_runner.nvim', depth = -1}, -- code runner
+ {'Borwe/code_runner.nvim'}, -- code runner
  {'nvim-telescope/telescope.nvim', branch = '0.1.0'}, -- get telescope
 }
 
