@@ -1,6 +1,34 @@
 -- setup paq
-require('paq_setup').setup()
-require('neovide_setup').setup()
+local bootstrap = require('paq_setup').bootstrap
+-- Add packages
+bootstrap {
+ 'nvim-lua/plenary.nvim', -- required by telescope
+ 'tpope/vim-sleuth', -- for tabbing
+ 'nvim-lualine/lualine.nvim', -- lualine
+ 'tpope/vim-fugitive',   --for git and info on airline
+ 'neovim/nvim-lspconfig', -- for lsp
+ 'leafgarland/typescript-vim', -- syntax highlighting for vim
+ 'kyazdani42/nvim-tree.lua', -- for nvim-tree
+-- START FOR COMPLETIONS
+ 'hrsh7th/cmp-nvim-lsp',
+ 'hrsh7th/cmp-buffer',
+ 'hrsh7th/nvim-cmp',
+ 'quangnguyen30192/cmp-nvim-ultisnips', -- for ulti snips completion
+-- DONE FOR COMPLETIONS
+-- START LspInstall
+ "williamboman/mason.nvim",
+ "williamboman/mason-lspconfig.nvim",
+-- DONE LspInstall
+ 'SirVer/ultisnips', -- for snippets
+ 'mhinz/vim-startify', -- for managing startup and sessions
+ {'nanotee/luv-vimdocs'}, --for luv documentation
+ 'wsdjeg/luarefvim', -- for lua 5.1 documentation
+ 'wakatime/vim-wakatime', -- wakatime
+ 'olimorris/onedarkpro.nvim', -- theme
+ {'Borwe/code_runner.nvim'}, -- code runner
+ {'nvim-telescope/telescope.nvim', branch = '0.1.x'}, -- get telescope
+}
+require('gui_setup').setup()
 
 
 -- valriables
@@ -32,35 +60,6 @@ local function opts_script(key,val)
 end
 
 
--- Add packages
-require("paq"){
-
- 'nvim-lua/plenary.nvim', -- required by telescope
- 'tpope/vim-sleuth', -- for tabbing
- 'nvim-lualine/lualine.nvim', -- lualine
- 'tpope/vim-fugitive',   --for git and info on airline
- 'neovim/nvim-lspconfig', -- for lsp
- 'leafgarland/typescript-vim', -- syntax highlighting for vim
- 'kyazdani42/nvim-tree.lua', -- for nvim-tree
--- START FOR COMPLETIONS
- 'hrsh7th/cmp-nvim-lsp',
- 'hrsh7th/cmp-buffer',
- 'hrsh7th/nvim-cmp',
- 'quangnguyen30192/cmp-nvim-ultisnips', -- for ulti snips completion
--- DONE FOR COMPLETIONS
--- START LspInstall
- "williamboman/mason.nvim",
- "williamboman/mason-lspconfig.nvim",
--- DONE LspInstall
- 'SirVer/ultisnips', -- for snippets
- 'mhinz/vim-startify', -- for managing startup and sessions
- {'nanotee/luv-vimdocs'}, --for luv documentation
- 'wsdjeg/luarefvim', -- for lua 5.1 documentation
- 'wakatime/vim-wakatime', -- wakatime
- 'olimorris/onedarkpro.nvim', -- theme
- {'Borwe/code_runner.nvim'}, -- code runner
- {'nvim-telescope/telescope.nvim', branch = '0.1.0'}, -- get telescope
-}
 
 -- setup nvim-cmp
 require('nvim_cmp_setup').setup()
