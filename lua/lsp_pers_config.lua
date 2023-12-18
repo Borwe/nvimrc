@@ -1,4 +1,5 @@
 local lspconfig = require('lspconfig')
+local lspconfig_configurer = require('lspconfig.configs')
 
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet='UltiSnips'
@@ -16,18 +17,8 @@ local map= function (type,key,value)
     vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap=true, silent=true});
 end
 
--- for restarting all lsp servers
-lspes_restart_all=function ()
-    vim.lsp.stop_client(vim.lsp.get_active_clients())
-    vim.cmd('edit')
-    vim.cmd('edit')
-end
-vim.api.nvim_create_user_command('LspRestart', lspes_restart_all, {['bang']=true})
-
 -- for renaming using lsp
 vim.api.nvim_create_user_command('LspRename', vim.lsp.buf.rename, {['bang']=true})
-
-
 
 -- Handle mapping and execution once LSP is attatched
 local custom_on_attach_lsp=function (client)
@@ -49,11 +40,41 @@ local custom_on_attach_lsp=function (client)
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
+
+-- nuru lsp setup
+
+
+-- setup zls for zig
 lspconfig["zls"].setup{
     capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
         .make_client_capabilities()),
     on_attach=custom_on_attach_lsp
 }
+-- setup nuru-lsp
+lspconfig_configurer["nuru-lsp"] = {
+  default_config = {
+    cmd = { '/home/brian/Workspace/nuru-lsp/nuru-lsp' },
+    filetypes = { 'sr', 'nroff' },
+    root_dir = require('lspconfig.util').find_git_ancestor,
+    single_file_support = true,
+  },
+  docs = {
+    description = [[
+https://github.com/Borwe/nuru-lsp
+
+Nuru Unofficial Language Server
+        ]],
+    default_config = {
+      root_dir = [[util.find_git_ancestor]],
+    },
+  },
+}
+lspconfig["nuru-lsp"].setup{
+    capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
+        .make_client_capabilities()),
+    on_attach=custom_on_attach_lsp
+}
+
 require('mason-lspconfig').setup {
     ensure_installed = {"lua_ls"},
     handlers = {

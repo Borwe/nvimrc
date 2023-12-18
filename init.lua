@@ -5,6 +5,7 @@ bootstrap {
  'nvim-lua/plenary.nvim', -- required by telescope
  'tpope/vim-sleuth', -- for tabbing
  'nvim-lualine/lualine.nvim', -- lualine
+  'nvim-tree/nvim-web-devicons', 
  'tpope/vim-fugitive',   --for git and info on airline
  'neovim/nvim-lspconfig', -- for lsp
  'leafgarland/typescript-vim', -- syntax highlighting for vim
