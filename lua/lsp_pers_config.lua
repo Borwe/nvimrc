@@ -26,15 +26,14 @@ local custom_on_attach_lsp=function (client)
 
     -- Set key mappings
     map('n','<Space>n','<cmd>lua vim.lsp.buf.definition()<CR>')
-    map('n','<Space>k','<cmd>lua <CR>')
-    map('n','<Space>z','<cmd>lua vim.lsp.buf.hover()<CR>')
+    map('n','<Space>k','<cmd>lua vim.lsp.buf.hover()<CR>')
     map('n','<Space>a','<cmd>lua vim.lsp.buf.hover();vim.lsp.buf.hover()<CR>')
     map('n','<Space>i','<cmd>lua vim.lsp.buf.implementation()<CR>')
     map('n','<Space>s','<cmd>lua vim.lsp.buf.signature_help()<CR>')
     map('n','<Space>d','<cmd>lua vim.lsp.buf.type_definition()<CR>')
     map('n','<Space>r','<cmd>lua vim.lsp.buf.references()<CR>')
     map('n','<Space>q','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-    map('n','<Space>w','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+    map('n','<Space>w','<cmd>lua vim.lsp.buf.format()<CR>')
     map('n','<Space>m','<cmd>lua vim.lsp.buf.declaration()<CR>')
     map('n','<Space>x','<cmd>lua vim.diagnostic.open_float()<CR>')
     map('n','<Space>f','<cmd>lua vim.lsp.buf.code_action()<CR>')
@@ -53,7 +52,7 @@ lspconfig["zls"].setup{
 -- setup nuru-lsp
 lspconfig_configurer["nuru-lsp"] = {
   default_config = {
-    cmd = { '/home/brian/Workspace/nuru-lsp/nuru-lsp' },
+    cmd = { '/home/brian/Workspace/nuru-lsp/nuru-lsp', './lsp.log' },
     filetypes = { 'sr', 'nroff' },
     root_dir = require('lspconfig.util').find_git_ancestor,
     single_file_support = true,
