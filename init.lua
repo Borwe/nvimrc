@@ -114,12 +114,16 @@ map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')
 map('n','vch',':tchdir '..vim.fn.stdpath('config')..'<CR>')
 --setup terminal
 if isWin32 then
+  map('n','sterm',
+  ':belowright split term://powershell<CR>')
   map('n','term',
-  ':belowright split term://cmd<CR>')
+  ':edit term://powershell<CR>')
   map('n','vterm',
-  ':vsplit term://cmd<CR>')
+  ':vsplit term://powershell<CR>')
 else
   map('n','term',
+  ':edit term://bash<CR>')
+  map('n','sterm',
   ':belowright split term://bash<CR>')
   map('n','vterm',
   ':vsplit term://bash<CR>')
