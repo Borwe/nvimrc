@@ -1,4 +1,5 @@
 -- setup paq
+--
 local bootstrap = require('paq_setup').bootstrap
 -- Add packages
 bootstrap {
