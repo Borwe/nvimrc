@@ -28,13 +28,13 @@ bootstrap {
  'olimorris/onedarkpro.nvim', -- theme
  {'Borwe/code_runner.nvim'}, -- code runner
  {'nvim-telescope/telescope.nvim', branch = '0.1.x'}, -- get telescope
+ {'Th3Whit3Wolf/Dusk-til-Dawn.nvim'} -- autmoatic theme switcher based on time
 }
 require('gui_setup').setup()
 
 
 -- valriables
 local scopes={o=vim.o,b=vim.bo,w=vim.wo}
-local isWin32=vim.fn.has('win32')==1 and true or false
 
 -- For setting options that require values
 local function opts_with_val(scope,key,value)
@@ -55,17 +55,10 @@ local function opts(key)
     vim.cmd("set "..key)
 end
 
--- For setting variables of script type
-local function opts_script(key,val)
-    vim.cmd('let '..key..'='..val)
-end
-
-
-
 -- setup nvim-cmp
 require('nvim_cmp_setup').setup()
 -- code-runner setup
-require('coder_runner_setup').setup()
+--require('coder_runner_setup').setup()
 --setup nvim-tree
 require('nvim-tree').setup({
   update_cwd=true
@@ -84,8 +77,12 @@ opts("showcmd")
 -- setup lualine
 require('lualine').setup()
 -- setup the background theme
-vim.o.background="dark"
+vim.o.background="light"
 require('onedarkpro').load()
+-- setup Dusk-til-Dawn
+vim.g.dusk_til_dawn_night = 20
+vim.g.dusk_til_dawn_morning = 8
+require('theme_time_swapper').setup("onedark","onelight")
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
@@ -113,23 +110,7 @@ map('n','vrc',
 map('n','pch',':tchdir '..vim.fn.stdpath('data')..'/site/pack/paqs/start<CR>')
 map('n','vch',':tchdir '..vim.fn.stdpath('config')..'<CR>')
 --setup terminal
-if isWin32 then
-  map('n','sterm',
-  ':belowright split term://powershell<CR>')
-  map('n','term',
-  ':edit term://powershell<CR>')
-  map('n','vterm',
-  ':vsplit term://powershell<CR>')
-else
-  map('n','term',
-  ':edit term://bash<CR>')
-  map('n','sterm',
-  ':belowright split term://bash<CR>')
-  map('n','vterm',
-  ':vsplit term://bash<CR>')
-end
---for exiting insert mode in terminal
-map('t','<C-e>','<C-\\><C-N>')
+require("term_handler").setup()
 
 -- for quotes and other double entries
 map('i','"','""<C-[>i')
