@@ -5,7 +5,7 @@ bootstrap {
  'nvim-lua/plenary.nvim', -- required by telescope
  'tpope/vim-sleuth', -- for tabbing
  'nvim-lualine/lualine.nvim', -- lualine
-  'nvim-tree/nvim-web-devicons', 
+  'nvim-tree/nvim-web-devicons',
  'tpope/vim-fugitive',   --for git and info on airline
  'neovim/nvim-lspconfig', -- for lsp
  'leafgarland/typescript-vim', -- syntax highlighting for vim
@@ -28,10 +28,11 @@ bootstrap {
  'olimorris/onedarkpro.nvim', -- theme
  {'Borwe/code_runner.nvim'}, -- code runner
  {'nvim-telescope/telescope.nvim', branch = '0.1.x'}, -- get telescope
- {'Th3Whit3Wolf/Dusk-til-Dawn.nvim'} -- autmoatic theme switcher based on time
+ {'Th3Whit3Wolf/Dusk-til-Dawn.nvim'}, -- autmoatic theme switcher based on time
+ {'nvim-treesitter/nvim-treesitter'} -- setup treesitter
 }
 require('gui_setup').setup()
-
+require("tree_sitter_setup").setup()
 
 -- valriables
 local scopes={o=vim.o,b=vim.bo,w=vim.wo}
@@ -80,8 +81,6 @@ require('lualine').setup()
 vim.o.background="light"
 require('onedarkpro').load()
 -- setup Dusk-til-Dawn
-vim.g.dusk_til_dawn_night = 20
-vim.g.dusk_til_dawn_morning = 8
 require('theme_time_swapper').setup("onedark","onelight")
 opts("showmatch")
 opts("ignorecase")
