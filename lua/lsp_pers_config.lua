@@ -52,7 +52,7 @@ lspconfig["zls"].setup{
 -- setup nuru-lsp
 lspconfig_configurer["nuru-lsp"] = {
   default_config = {
-    cmd = { '/home/brian/Workspace/nuru-lsp/nuru-lsp', './lsp.log' },
+    cmd = { '/home/brian/Workspaces/nuru-lsp/nuru-lsp', './lsp.log' },
     filetypes = { 'sr', 'nroff' },
     root_dir = require('lspconfig.util').find_git_ancestor,
     single_file_support = true,
