@@ -43,12 +43,6 @@ end
 -- nuru lsp setup
 
 
--- setup zls for zig
-lspconfig["zls"].setup{
-    capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
-        .make_client_capabilities()),
-    on_attach=custom_on_attach_lsp
-}
 -- setup nuru-lsp
 lspconfig_configurer["nuru-lsp"] = {
   default_config = {

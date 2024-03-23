@@ -28,7 +28,6 @@ bootstrap {
  'olimorris/onedarkpro.nvim', -- theme
  {'Borwe/code_runner.nvim'}, -- code runner
  {'nvim-telescope/telescope.nvim', branch = '0.1.x'}, -- get telescope
- {'Th3Whit3Wolf/Dusk-til-Dawn.nvim'}, -- autmoatic theme switcher based on time
  {'nvim-treesitter/nvim-treesitter'} -- setup treesitter
 }
 require('gui_setup').setup()
@@ -80,8 +79,6 @@ require('lualine').setup()
 -- setup the background theme
 vim.o.background="light"
 require('onedarkpro').load()
--- setup Dusk-til-Dawn
-require('theme_time_swapper').setup("onedark","onelight")
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
