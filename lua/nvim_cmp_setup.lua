@@ -1,5 +1,5 @@
 local cmp = require('cmp')
-require('codeium').setup({})
+--require('codeium').setup({})
 
 M.setup = function()
     cmp.setup({
@@ -31,7 +31,7 @@ M.setup = function()
             { name = 'buffer' },
 
             -- For codeium
-            { name = 'codeium' },
+            --{ name = 'codeium' },
         }
     })
 end
