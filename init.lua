@@ -14,7 +14,8 @@ bootstrap {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/nvim-cmp',
-    'Exafunction/codeium.nvim', -- codeium ai
+    {'Borwe/codeium.nvim', branch = "windows-io-fix"},
+    --'Exafunction/codeium.nvim', -- codeium ai
     'quangnguyen30192/cmp-nvim-ultisnips', -- for ulti snips completion
     -- DONE FOR COMPLETIONS
     -- START LspInstall

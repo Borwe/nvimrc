@@ -46,7 +46,7 @@ end
 -- setup nuru-lsp
 lspconfig_configurer["nuru-lsp"] = {
   default_config = {
-    cmd = { 'nuru-lsp', './lsp.log' },
+    cmd = { 'C:/Users/Brian/Workspaces/nuru-lsp/nuru-lsp.exe', 'C:/Users/Brian/Workspaces/nuru-lsp/lsp.log' },
     filetypes = { 'sr', 'nroff' },
     root_dir = require('lspconfig.util').find_git_ancestor,
     single_file_support = true,
