@@ -27,10 +27,10 @@ bootstrap {
     { 'nanotee/luv-vimdocs' },                        --for luv documentation
     'wsdjeg/luarefvim',                               -- for lua 5.1 documentation
     'wakatime/vim-wakatime',                          -- wakatime
-    'catppuccin/nvim',
-    { 'Borwe/code_runner.nvim' },                     -- code runner
+    'ellisonleao/gruvbox.nvim',
+    -- { 'Borwe/code_runner.nvim' },                     -- code runner
     { 'nvim-telescope/telescope.nvim',  branch = '0.1.x' }, -- get telescope
-    { 'nvim-treesitter/nvim-treesitter' }             -- setup treesitter
+    { 'nvim-treesitter/nvim-treesitter' },             -- setup treesitter
 }
 require('gui_setup').setup()
 require("tree_sitter_setup").setup()
@@ -42,6 +42,8 @@ local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
 local function opts_with_val(scope, key, value)
     scopes[scope][key] = value
 end
+
+vim.g.zig_fmt_autosave = 0
 
 -- Create mappings
 local function map(mode, lhs, rhs, opts)
@@ -72,15 +74,14 @@ require('telescope_setup').setup()
 -- add for lsp support
 require('lsp_pers_config')
 
--- setup some configurations
-opts_with_val('o', 'background', 'dark')                                                                      -- Set background
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
 -- setup lualine
 require('lualine').setup()
+vim.o.laststatus = 3
 -- setup the background theme
-vim.o.background = "light"
-vim.cmd("colorscheme catppuccin-mocha")
+vim.o.background = "dark"
+vim.cmd("colorscheme gruvbox")
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
@@ -92,10 +93,9 @@ opts("expandtab")
 opts("smartindent")
 opts("wildmenu")
 vim.api.nvim_set_option_value('encoding', 'utf-8', {})
-vim.api.nvim_set_option_value('tabstop', 2, {})
-vim.api.nvim_set_option_value('tabstop', 2, {})
-vim.api.nvim_set_option_value('softtabstop', 2, {})
-vim.api.nvim_set_option_value('shiftwidth', 2, {})
+vim.api.nvim_set_option_value('tabstop', 4, {})
+vim.api.nvim_set_option_value('softtabstop', 4, {})
+vim.api.nvim_set_option_value('shiftwidth', 4, {})
 vim.api.nvim_set_option_value('foldmethod', 'syntax', {})
 vim.api.nvim_set_option_value('backspace', '2', {})
 vim.api.nvim_set_option_value('path', vim.o.path .. "**", {})

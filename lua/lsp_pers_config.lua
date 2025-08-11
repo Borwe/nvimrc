@@ -40,9 +40,6 @@ local custom_on_attach_lsp = function(client)
 end
 
 
--- nuru lsp setup
-
-
 -- setup nuru-lsp
 lspconfig_configurer["nuru-lsp"] = {
     default_config = {
@@ -73,6 +70,21 @@ require('mason-lspconfig').setup {
     handlers = {
         function(server_name)
             lspconfig[server_name].setup {
+                capabilities = require('cmp_nvim_lsp')
+                    .default_capabilities(vim.lsp.protocol
+                        .make_client_capabilities()),
+                on_attach = custom_on_attach_lsp
+            }
+        end,
+        ["rust_analyzer"] = function ()
+            lspconfig["rust_analyzer"].setup {
+                settings = {
+                    ["rust-analyzer"] = {
+                          cargo = {
+                            target = "wasm32-unknown-unknown"
+                          }
+                        }
+                },
                 capabilities = require('cmp_nvim_lsp')
                     .default_capabilities(vim.lsp.protocol
                         .make_client_capabilities()),
