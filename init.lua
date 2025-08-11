@@ -34,12 +34,12 @@ bootstrap {
 
     -- Avante AI
     -- required dependencies
-    -- 'nvim-lua/plenary.nvim',
-    -- 'MunifTanjim/nui.nvim',
-    -- 'MeanderingProgrammer/render-markdown.nvim',
-    -- 'nvim-tree/nvim-web-devicons',
-    --'hrsh7th/nvim-cmp',
-    --{'yetone/avante.nvim', build = "make"}
+    'nvim-lua/plenary.nvim',
+    'MunifTanjim/nui.nvim',
+    'MeanderingProgrammer/render-markdown.nvim',
+    'nvim-tree/nvim-web-devicons',
+    'hrsh7th/nvim-cmp',
+    {'yetone/avante.nvim', build = "make"}
     -- Done Avante AI
 }
 require('gui_setup').setup()
@@ -82,13 +82,20 @@ require('nvim-tree').setup({
 -- setup telescope commands
 require('telescope_setup').setup()
 -- add for ai
---require('avante').setup()
+require('avante').setup({
+    provider = "gemini",
+    providers = {
+        gemini = {
+            model = "gemini-2.0-flash"
+        }
+    }
+})
 
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
 -- setup lualine
 require('lualine').setup()
-vim.o.laststatus = 3
+vim.opt.laststatus = 3
 -- setup the background theme
 vim.o.background = "dark"
 vim.cmd("colorscheme gruvbox")
