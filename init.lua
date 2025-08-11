@@ -31,6 +31,16 @@ bootstrap {
     -- { 'Borwe/code_runner.nvim' },                     -- code runner
     { 'nvim-telescope/telescope.nvim',  branch = '0.1.x' }, -- get telescope
     { 'nvim-treesitter/nvim-treesitter' },             -- setup treesitter
+
+    -- Avante AI
+    -- required dependencies
+    -- 'nvim-lua/plenary.nvim',
+    -- 'MunifTanjim/nui.nvim',
+    -- 'MeanderingProgrammer/render-markdown.nvim',
+    -- 'nvim-tree/nvim-web-devicons',
+    --'hrsh7th/nvim-cmp',
+    --{'yetone/avante.nvim', build = "make"}
+    -- Done Avante AI
 }
 require('gui_setup').setup()
 require("tree_sitter_setup").setup()
@@ -59,6 +69,8 @@ local function opts(key)
     vim.cmd("set " .. key)
 end
 
+--setup mason
+require('mason').setup()
 -- setup nvim-cmp
 require('nvim_cmp_setup').setup()
 -- code-runner setup
@@ -67,12 +79,10 @@ require('nvim_cmp_setup').setup()
 require('nvim-tree').setup({
     update_cwd = true
 })
---setup mason
-require('mason').setup()
 -- setup telescope commands
 require('telescope_setup').setup()
--- add for lsp support
-require('lsp_pers_config')
+-- add for ai
+--require('avante').setup()
 
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")

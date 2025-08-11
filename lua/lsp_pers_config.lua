@@ -4,7 +4,6 @@ local lspconfig_configurer = require('lspconfig.configs')
 -- Configure to work with Ultisnips templates
 vim.g.completion_enable_snippet = 'UltiSnips'
 
-
 -- Configure for buffers complete
 vim.g.completion_chain_complete_list = {
     { complete_items = { 'lsp' } },
@@ -26,7 +25,8 @@ local custom_on_attach_lsp = function(client)
 
     -- Set key mappings
     map('n', '<Space>n', '<cmd>lua vim.lsp.buf.definition()<CR>')
-    map('n', '<Space>k', '<cmd>lua vim.lsp.buf.hover()<CR>')
+    --map('n', '<Space>k', '<cmd>lua require("cmp").mapping.open_docs()<CR>')
+    map('n', '<Space>k', '<cmd>lua vim.lsp.buf.hover({border = "rounded"})<CR>')
     map('n', '<Space>a', '<cmd>lua vim.lsp.buf.hover();vim.lsp.buf.hover()<CR>')
     map('n', '<Space>i', '<cmd>lua vim.lsp.buf.implementation()<CR>')
     map('n', '<Space>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
@@ -59,62 +59,59 @@ Nuru Unofficial Language Server
         },
     },
 }
-lspconfig["nuru-lsp"].setup {
+require('mason-lspconfig').setup {
+    ensure_installed = { "lua_ls", "clangd", "rust_analyzer", "zls", "ts_ls" },
+}
+
+
+vim.lsp.config("nuru-lsp", {
     capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
         .make_client_capabilities()),
     on_attach = custom_on_attach_lsp
-}
+})
 
-require('mason-lspconfig').setup {
-    ensure_installed = { "lua_ls", "clangd", "rust_analyzer", "zls", "ts_ls" },
-    handlers = {
-        function(server_name)
-            lspconfig[server_name].setup {
-                capabilities = require('cmp_nvim_lsp')
-                    .default_capabilities(vim.lsp.protocol
-                        .make_client_capabilities()),
-                on_attach = custom_on_attach_lsp
+vim.lsp.config('*', {
+    capabilities = require('cmp_nvim_lsp')
+        .default_capabilities(vim.lsp.protocol
+            .make_client_capabilities()),
+    on_attach = custom_on_attach_lsp
+})
+
+vim.lsp.config('rust_analyzer', {
+    settings = {
+        ["rust-analyzer"] = {
+            cargo = {
+                target = "wasm32-unknown-unknown"
             }
-        end,
-        ["rust_analyzer"] = function ()
-            lspconfig["rust_analyzer"].setup {
-                settings = {
-                    ["rust-analyzer"] = {
-                          cargo = {
-                            target = "wasm32-unknown-unknown"
-                          }
-                        }
+        }
+    },
+    capabilities = require('cmp_nvim_lsp')
+        .default_capabilities(vim.lsp.protocol
+            .make_client_capabilities()),
+    on_attach = custom_on_attach_lsp
+})
+
+vim.lsp.config('lua_ls', {
+    capabilities = require('cmp_nvim_lsp').
+        default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    on_attach = custom_on_attach_lsp,
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+                path = vim.split(package.path, ';'),
+            },
+            workspace = {
+                library = {
+                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
                 },
-                capabilities = require('cmp_nvim_lsp')
-                    .default_capabilities(vim.lsp.protocol
-                        .make_client_capabilities()),
-                on_attach = custom_on_attach_lsp
-            }
-        end,
-        ["lua_ls"] = function()
-            lspconfig.lua_ls.setup {
-                capabilities = require('cmp_nvim_lsp').
-                    default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-                on_attach = custom_on_attach_lsp,
-                settings = {
-                    Lua = {
-                        runtime = {
-                            version = "LuaJIT",
-                            path = vim.split(package.path, ';'),
-                        },
-                        workspace = {
-                            library = {
-                                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-                            },
-                        },
-                        diagnostics = {
-                            globals = { "vim" },
-                            disable = { "lowercase-global", "unused-function" },
-                        },
-                    },
-                },
-            }
-        end
-    }
-}
+            },
+            diagnostics = {
+                globals = { "vim" },
+                disable = { "lowercase-global", "unused-function" },
+            },
+        },
+    },
+})
+
