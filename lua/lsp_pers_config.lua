@@ -70,6 +70,7 @@ vim.lsp.config("nuru-lsp", {
     on_attach = custom_on_attach_lsp
 })
 
+
 vim.lsp.config('*', {
     capabilities = require('cmp_nvim_lsp')
         .default_capabilities(vim.lsp.protocol
@@ -77,14 +78,14 @@ vim.lsp.config('*', {
     on_attach = custom_on_attach_lsp
 })
 
+vim.lsp.config('clangd', {
+    capabilities = require('cmp_nvim_lsp')
+        .default_capabilities(vim.lsp.protocol
+            .make_client_capabilities()),
+    on_attach = custom_on_attach_lsp
+})
+
 vim.lsp.config('rust_analyzer', {
-    settings = {
-        ["rust-analyzer"] = {
-            cargo = {
-                target = "wasm32-unknown-unknown"
-            }
-        }
-    },
     capabilities = require('cmp_nvim_lsp')
         .default_capabilities(vim.lsp.protocol
             .make_client_capabilities()),

@@ -2,19 +2,19 @@
 local bootstrap = require('paq_setup').bootstrap
 -- Add packages
 bootstrap {
-    'nvim-lua/plenary.nvim',   -- required by telescope
-    'tpope/vim-sleuth',        -- for tabbing
-    'nvim-lualine/lualine.nvim', -- lualine
+    'nvim-lua/plenary.nvim',      -- required by telescope
+    'tpope/vim-sleuth',           -- for tabbing
+    'nvim-lualine/lualine.nvim',  -- lualine
     'nvim-tree/nvim-web-devicons',
-    'tpope/vim-fugitive',      --for git and info on airline
-    'neovim/nvim-lspconfig',   -- for lsp
+    'tpope/vim-fugitive',         --for git and info on airline
+    'neovim/nvim-lspconfig',      -- for lsp
     'leafgarland/typescript-vim', -- syntax highlighting for vim
-    'kyazdani42/nvim-tree.lua', -- for nvim-tree
+    'kyazdani42/nvim-tree.lua',   -- for nvim-tree
     -- START FOR COMPLETIONS
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/nvim-cmp',
-    {'Borwe/codeium.nvim', branch = "windows-io-fix"},
+    { 'Borwe/codeium.nvim', branch = "windows-io-fix" },
     --'Exafunction/codeium.nvim', -- codeium ai
     'quangnguyen30192/cmp-nvim-ultisnips', -- for ulti snips completion
     -- DONE FOR COMPLETIONS
@@ -22,24 +22,26 @@ bootstrap {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     -- DONE LspInstall
-    'SirVer/ultisnips',                               -- for snippets
-    'mhinz/vim-startify',                             -- for managing startup and sessions
-    { 'nanotee/luv-vimdocs' },                        --for luv documentation
-    'wsdjeg/luarefvim',                               -- for lua 5.1 documentation
-    'wakatime/vim-wakatime',                          -- wakatime
+    'SirVer/ultisnips',        -- for snippets
+    'mhinz/vim-startify',      -- for managing startup and sessions
+    { 'nanotee/luv-vimdocs' }, --for luv documentation
+    'wsdjeg/luarefvim',        -- for lua 5.1 documentation
+    'wakatime/vim-wakatime',   -- wakatime
     'ellisonleao/gruvbox.nvim',
     -- { 'Borwe/code_runner.nvim' },                     -- code runner
     { 'nvim-telescope/telescope.nvim',  branch = '0.1.x' }, -- get telescope
-    { 'nvim-treesitter/nvim-treesitter' },             -- setup treesitter
+    { 'nvim-treesitter/nvim-treesitter' },                  -- setup treesitter
 
     -- Avante AI
+    { 'yetone/avante.nvim',             build = "make" },
     -- required dependencies
     'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',
     'MeanderingProgrammer/render-markdown.nvim',
     'nvim-tree/nvim-web-devicons',
     'hrsh7th/nvim-cmp',
-    {'yetone/avante.nvim', build = "make"}
+    -- dependency for setting up using dotenv
+    'ellisonleao/dotenv.nvim',
     -- Done Avante AI
 }
 require('gui_setup').setup()
@@ -82,14 +84,7 @@ require('nvim-tree').setup({
 -- setup telescope commands
 require('telescope_setup').setup()
 -- add for ai
-require('avante').setup({
-    provider = "gemini",
-    providers = {
-        gemini = {
-            model = "gemini-2.0-flash"
-        }
-    }
-})
+require('avante_setup').setup("/home/brian/ai.txt")
 
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
@@ -126,6 +121,13 @@ map('n', 'pch', ':tchdir ' .. vim.fn.stdpath('data') .. '/site/pack/paqs/start<C
 map('n', 'vch', ':tchdir ' .. vim.fn.stdpath('config') .. '<CR>')
 --setup terminal
 require("term_handler").setup()
+
+
+--window movements for zellij-web
+map('n',' wl','<C-w>l')
+map('n',' wh','<C-w>h')
+map('n',' wj','<C-w>j')
+map('n',' wk','<C-w>k')
 
 -- for quotes and other double entries
 map('i', '"', '""<C-[>i')
