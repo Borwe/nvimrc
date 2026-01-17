@@ -37,6 +37,23 @@ local custom_on_attach_lsp = function(client)
     map('n', '<Space>m', '<cmd>lua vim.lsp.buf.declaration()<CR>')
     map('n', '<Space>x', '<cmd>lua vim.diagnostic.open_float()<CR>')
     map('n', '<Space>f', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+
+    fmt_augroup = vim.api.nvim_create_augroup("lsp_pers_config_fmt", {})
+    vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        pattern = { '*.rs' },
+        group = fmt_augroup,
+        callback = function(args)
+
+            if args.file:find("rs")~= nil then
+                cmd = ("rustfmt %s"):format(vim.api.nvim_buf_get_name(args.buf))
+                vim.fn.jobstart(cmd, {on_exit = function (id,code,_evnt)
+                    vim.api.nvim_buf_call(args.buf, function ()
+                        vim.cmd("edit")
+                    end)
+                end})
+            end
+        end
+    })
 end
 
 
@@ -59,10 +76,25 @@ Nuru Unofficial Language Server
         },
     },
 }
-require('mason-lspconfig').setup {
-    ensure_installed = { "lua_ls", "clangd", "rust_analyzer", "zls", "ts_ls" },
+
+
+vim.lsp.config.c3_lsp = {
+    cmd = {'/home/brian/.local/bin/c3lsp'},
+    filetypes = { 'c3', 'c3i'},
+    root_markers = { 'project.json', 'manifest.json', '.git' },
 }
 
+
+require('mason-lspconfig').setup {
+    ensure_installed = { "lua_ls", "rust_analyzer", "zls", "ts_ls" },
+}
+
+vim.lsp.config("c3_lsp", {
+    capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
+        .make_client_capabilities()),
+    on_attach = custom_on_attach_lsp
+})
+vim.lsp.enable('c3_lsp',true)
 
 vim.lsp.config("nuru-lsp", {
     capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
@@ -85,6 +117,14 @@ vim.lsp.config('clangd', {
     on_attach = custom_on_attach_lsp
 })
 
+
+vim.lsp.config('dartls', {
+    capabilities = require('cmp_nvim_lsp')
+        .default_capabilities(vim.lsp.protocol
+            .make_client_capabilities()),
+    on_attach = custom_on_attach_lsp
+})
+
 vim.lsp.config('rust_analyzer', {
     capabilities = require('cmp_nvim_lsp')
         .default_capabilities(vim.lsp.protocol
@@ -94,7 +134,7 @@ vim.lsp.config('rust_analyzer', {
 
 vim.lsp.config('lua_ls', {
     capabilities = require('cmp_nvim_lsp').
-        default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    default_capabilities(vim.lsp.protocol.make_client_capabilities()),
     on_attach = custom_on_attach_lsp,
     settings = {
         Lua = {
@@ -115,4 +155,3 @@ vim.lsp.config('lua_ls', {
         },
     },
 })
-

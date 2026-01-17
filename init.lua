@@ -33,15 +33,15 @@ bootstrap {
     { 'nvim-treesitter/nvim-treesitter' },                  -- setup treesitter
 
     -- Avante AI
-    { 'yetone/avante.nvim',             build = "make" },
-    -- required dependencies
-    'nvim-lua/plenary.nvim',
-    'MunifTanjim/nui.nvim',
-    'MeanderingProgrammer/render-markdown.nvim',
-    'nvim-tree/nvim-web-devicons',
-    'hrsh7th/nvim-cmp',
-    -- dependency for setting up using dotenv
-    'ellisonleao/dotenv.nvim',
+    --{ 'yetone/avante.nvim',             build = "make" },
+    ---- required dependencies
+    --'nvim-lua/plenary.nvim',
+    --'MunifTanjim/nui.nvim',
+    --'MeanderingProgrammer/render-markdown.nvim',
+    --'nvim-tree/nvim-web-devicons',
+    --'hrsh7th/nvim-cmp',
+    ---- dependency for setting up using dotenv
+    --'ellisonleao/dotenv.nvim',
     -- Done Avante AI
 }
 require('gui_setup').setup()
@@ -84,7 +84,7 @@ require('nvim-tree').setup({
 -- setup telescope commands
 require('telescope_setup').setup()
 -- add for ai
-require('avante_setup').setup("/home/brian/ai.txt")
+--require('avante_setup').setup("/home/brian/ai.txt")
 
 vim.cmd('au BufReadPost * if line("\'\\"") > 1 && line("\'\\"") <= line("$") | exe "normal! g\'\\"" | endif') -- Open file in last location
 opts("showcmd")
@@ -92,8 +92,9 @@ opts("showcmd")
 require('lualine').setup()
 vim.opt.laststatus = 3
 -- setup the background theme
-vim.o.background = "dark"
 vim.cmd("colorscheme gruvbox")
+vim.o.background = "dark"
+
 opts("showmatch")
 opts("ignorecase")
 opts("incsearch")
@@ -128,6 +129,9 @@ map('n',' wl','<C-w>l')
 map('n',' wh','<C-w>h')
 map('n',' wj','<C-w>j')
 map('n',' wk','<C-w>k')
+map('n',' w=','<C-w>=')
+map('n',' w_','<C-w>_')
+map('n',' w|','<C-w>|')
 
 -- for quotes and other double entries
 map('i', '"', '""<C-[>i')
