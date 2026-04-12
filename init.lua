@@ -27,7 +27,6 @@ bootstrap {
     { 'nanotee/luv-vimdocs' }, --for luv documentation
     'wsdjeg/luarefvim',        -- for lua 5.1 documentation
     'wakatime/vim-wakatime',   -- wakatime
-    'ellisonleao/gruvbox.nvim',
     -- { 'Borwe/code_runner.nvim' },                     -- code runner
     { 'nvim-telescope/telescope.nvim',  branch = '0.1.x' }, -- get telescope
     { 'nvim-treesitter/nvim-treesitter' },                  -- setup treesitter
@@ -92,7 +91,7 @@ opts("showcmd")
 require('lualine').setup()
 vim.opt.laststatus = 3
 -- setup the background theme
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme default")
 vim.o.background = "dark"
 
 opts("showmatch")

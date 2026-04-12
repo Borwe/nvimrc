@@ -86,7 +86,7 @@ vim.lsp.config.c3_lsp = {
 
 
 require('mason-lspconfig').setup {
-    ensure_installed = { "lua_ls", "rust_analyzer", "zls", "ts_ls" },
+    ensure_installed = {  "ts_ls", "bashls" },
 }
 
 vim.lsp.config("c3_lsp", {
