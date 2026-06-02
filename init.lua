@@ -92,7 +92,7 @@ require('lualine').setup()
 vim.opt.laststatus = 3
 -- setup the background theme
 vim.cmd("colorscheme default")
-vim.o.background = "dark"
+-- vim.o.background = "dark"
 
 opts("showmatch")
 opts("ignorecase")
